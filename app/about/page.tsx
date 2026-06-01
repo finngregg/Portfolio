@@ -66,7 +66,7 @@ export default function AboutPage() {
         <div className="mt-6 space-y-4 text-base leading-relaxed text-muted">
           <p>
             I am a frontend engineer with five years of experience, based in
-            Tel Aviv. I studied Electrical and Computer Engineering at UCT.
+            Tel Aviv. I studied Electrical and Computer Engineering at the University of Cape Town.
           </p>
           <p>
             Currently consulting at Business Science Corporation while building
@@ -98,6 +98,9 @@ export default function AboutPage() {
       </section>
 
       <section className="pb-24">
+        <p className="mb-6 text-sm font-medium text-muted uppercase tracking-widest">
+          Life through my eyes
+        </p>
         <div className="grid grid-cols-2 gap-2">
           {photos.map((photo) => (
             <div key={photo.src}>
