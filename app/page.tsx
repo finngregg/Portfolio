@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react'
 import { Gallery, type Photo } from '@/components/gallery/gallery'
 import { Travels, type LivedPlace } from '@/components/travels'
-import { COUNTRIES } from '@/lib/places'
 
 const places: LivedPlace[] = [
   {
@@ -69,14 +68,9 @@ export default function Home() {
       </section>
 
       <section className="pb-24">
-        <div className="mb-6">
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
-            Life through my eyes
-          </h2>
-          <p className="mt-2 text-sm text-muted">
-            A selection of photographs from the {COUNTRIES.length} countries I have visited.
-          </p>
-        </div>
+        <h2 className="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
+          Life through my eyes
+        </h2>
         <Gallery photos={photos} />
       </section>
     </main>
