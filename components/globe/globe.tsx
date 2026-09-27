@@ -100,7 +100,6 @@ export function Globe() {
     let velLon = 0
     let dragging = false
     let lastX = 0
-    let lastY = 0
     let lastInteraction = 0
     let focus: City | null = null
     let startTime = 0
@@ -302,27 +301,41 @@ export function Globe() {
     const themeObserver = new MutationObserver(readTheme)
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 
-    // Drag to spin, with momentum on release
+    // Drag sideways to spin, with momentum on release. Spin is horizontal only so it
+    // never competes with vertical page scroll; a drag must first commit to the
+    // horizontal axis before it moves the globe.
+    const AXIS_LOCK_PX = 6
+    let pressed = false
+    let downX = 0
+    let downY = 0
     const onDown = (e: PointerEvent) => {
-      dragging = true
-      focus = null
-      velLon = 0
-      lastX = e.clientX
-      lastY = e.clientY
-      canvas.setPointerCapture(e.pointerId)
+      pressed = true
+      downX = lastX = e.clientX
+      downY = e.clientY
     }
     const onMove = (e: PointerEvent) => {
-      if (!dragging) return
+      if (!pressed) return
+      if (!dragging) {
+        const dx = Math.abs(e.clientX - downX)
+        const dy = Math.abs(e.clientY - downY)
+        if (dx < AXIS_LOCK_PX && dy < AXIS_LOCK_PX) return
+        if (dy > dx) {
+          pressed = false // vertical intent: leave it to the page
+          return
+        }
+        dragging = true
+        focus = null
+        velLon = 0
+        canvas.setPointerCapture(e.pointerId)
+      }
       const dLon = ((e.clientX - lastX) / radius) * (180 / Math.PI)
-      const dLat = ((e.clientY - lastY) / radius) * (180 / Math.PI)
       viewLon -= dLon
-      viewLat = Math.max(-50, Math.min(50, viewLat + dLat))
       velLon = -dLon
       lastX = e.clientX
-      lastY = e.clientY
       lastInteraction = performance.now()
     }
     const onUp = () => {
+      pressed = false
       dragging = false
       lastInteraction = performance.now()
     }
