@@ -65,14 +65,31 @@ function flightPath(a: Place, b: Place) {
   return points
 }
 
-export function Globe({ mode }: { mode: GlobeMode }) {
+export function Globe({
+  mode,
+  selected,
+  onSpin,
+}: {
+  mode: GlobeMode
+  /** A tapped/clicked place the globe should turn to and keep highlighted */
+  selected: string | null
+  /** Called when the visitor starts spinning the globe themselves */
+  onSpin?: () => void
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   // since = 0 means "still on the first load", so the lived view plays its intro
   const modeRef = useRef({ mode, since: 0 })
+  const selectedRef = useRef(selected)
+  const onSpinRef = useRef(onSpin)
 
   useEffect(() => {
     if (modeRef.current.mode !== mode) modeRef.current = { mode, since: performance.now() }
   }, [mode])
+
+  useEffect(() => {
+    selectedRef.current = selected
+    onSpinRef.current = onSpin
+  }, [selected, onSpin])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -107,7 +124,11 @@ export function Globe({ mode }: { mode: GlobeMode }) {
     let dragging = false
     let lastX = 0
     let lastInteraction = 0
+    // Hover wins while it lasts; otherwise the tapped/clicked selection holds
+    let hovered: Place | null = null
     let focus: Place | null = null
+    const findPlace = (id: string | null) =>
+      id ? (CITIES.find((c) => c.id === id) ?? COUNTRIES.find((c) => c.id === id) ?? null) : null
     let startTime = 0
 
     // Layout
@@ -189,6 +210,7 @@ export function Globe({ mode }: { mode: GlobeMode }) {
       const restLat = m.mode === 'been' ? BEEN_LAT : HOME.lat
 
       const introDone = elapsed >= INTRO_MS || switched
+      focus = hovered ?? findPlace(selectedRef.current)
 
       // Rotation: timeline focus > inertia > idle auto-spin
       if (introDone && !dragging) {
@@ -380,7 +402,8 @@ export function Globe({ mode }: { mode: GlobeMode }) {
           return
         }
         dragging = true
-        focus = null
+        hovered = null
+        onSpinRef.current?.()
         velLon = 0
         canvas.setPointerCapture(e.pointerId)
       }
@@ -404,18 +427,14 @@ export function Globe({ mode }: { mode: GlobeMode }) {
     const PLACE_SELECTOR = '[data-city], [data-country]'
     const onOver = (e: PointerEvent) => {
       const row = (e.target as Element).closest?.(PLACE_SELECTOR)
-      if (!row) return
-      const cityId = row.getAttribute('data-city')
-      const countryId = row.getAttribute('data-country')
-      const place = cityId
-        ? CITIES.find((c) => c.id === cityId)
-        : COUNTRIES.find((c) => c.id === countryId)
-      if (place) focus = place
+      // Touch has no real hover; taps are handled as selection instead
+      if (!row || e.pointerType !== 'mouse') return
+      hovered = findPlace(row.getAttribute('data-city') ?? row.getAttribute('data-country'))
     }
     const onOut = (e: PointerEvent) => {
       const row = (e.target as Element).closest?.(PLACE_SELECTOR)
       if (row && !row.contains(e.relatedTarget as Node)) {
-        focus = null
+        hovered = null
         lastInteraction = performance.now()
       }
     }

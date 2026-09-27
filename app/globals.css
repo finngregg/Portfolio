@@ -87,7 +87,9 @@ html {
 }
 
 .hover-underline:hover::after,
-.hover-underline:focus-visible::after {
+.hover-underline:focus-visible::after,
+.group:hover .hover-underline::after,
+.hover-underline[data-selected]::after {
   transform: scaleX(1);
   transform-origin: left;
 }

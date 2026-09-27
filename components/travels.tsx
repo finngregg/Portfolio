@@ -18,6 +18,13 @@ const TABS: { id: GlobeMode; label: string }[] = [
 
 export function Travels({ lived }: { lived: LivedPlace[] }) {
   const [mode, setMode] = useState<GlobeMode>('lived')
+  // Tapped/clicked place the globe holds on (touch devices have no hover)
+  const [selected, setSelected] = useState<string | null>(null)
+  const toggle = (id: string) => setSelected((s) => (s === id ? null : id))
+  const switchMode = (next: GlobeMode) => {
+    setMode(next)
+    setSelected(null)
+  }
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const indicatorRef = useRef<HTMLSpanElement>(null)
 
@@ -33,7 +40,7 @@ export function Travels({ lived }: { lived: LivedPlace[] }) {
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
     const next = TABS[(TABS.findIndex((t) => t.id === mode) + 1) % TABS.length]
-    setMode(next.id)
+    switchMode(next.id)
     tabRefs.current[TABS.indexOf(next)]?.focus()
   }
 
@@ -54,7 +61,7 @@ export function Travels({ lived }: { lived: LivedPlace[] }) {
               aria-selected={selected}
               aria-controls={`panel-${tab.id}`}
               tabIndex={selected ? 0 : -1}
-              onClick={() => setMode(tab.id)}
+              onClick={() => switchMode(tab.id)}
               className={`pressable cursor-pointer pb-3 font-mono text-[11px] uppercase tracking-[0.15em] ${
                 selected ? 'text-foreground' : 'text-muted hover:text-foreground'
               }`}
@@ -71,42 +78,60 @@ export function Travels({ lived }: { lived: LivedPlace[] }) {
       </div>
 
       <div className="mt-8">
-        <Globe mode={mode} />
+        <Globe mode={mode} selected={selected} onSpin={() => setSelected(null)} />
         <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
           Drag to spin
         </p>
       </div>
 
       <div key={mode} role="tabpanel" id={`panel-${mode}`} aria-labelledby={`tab-${mode}`} className="enter mt-10">
-        {mode === 'lived' ? <LivedList lived={lived} /> : <BeenList />}
+        {mode === 'lived' ? (
+          <LivedList lived={lived} selected={selected} onSelect={toggle} />
+        ) : (
+          <BeenList selected={selected} onSelect={toggle} />
+        )}
       </div>
     </>
   )
 }
 
-function LivedList({ lived }: { lived: LivedPlace[] }) {
+type SelectProps = { selected: string | null; onSelect: (id: string) => void }
+
+function LivedList({ lived, selected, onSelect }: { lived: LivedPlace[] } & SelectProps) {
   return (
     <ol className="border-t border-border">
-      {lived.map((p) => (
-        <li
-          key={p.years}
-          data-city={p.city}
-          className="group grid gap-1 border-b border-border py-5 sm:grid-cols-[8rem_1fr] sm:gap-6"
-        >
-          <span className="font-mono text-xs text-muted tabular-nums">{p.years}</span>
-          <div>
-            <p className="text-sm font-medium text-foreground">{p.place}</p>
-            <p className="mt-1 text-sm leading-relaxed text-muted transition-colors duration-200 group-hover:text-foreground">
-              {p.what}
-            </p>
-          </div>
-        </li>
-      ))}
+      {lived.map((p) => {
+        const isSelected = selected === p.city
+        return (
+          <li key={p.years} data-city={p.city} className="border-b border-border">
+            <button
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => onSelect(p.city)}
+              className="group grid w-full cursor-pointer gap-1 py-5 text-left sm:grid-cols-[8rem_1fr] sm:gap-6"
+            >
+              <span className="font-mono text-xs text-muted tabular-nums">{p.years}</span>
+              <span>
+                <span className="hover-underline text-sm font-medium text-foreground" data-selected={isSelected || undefined}>
+                  {p.place}
+                </span>
+                <span
+                  className={`mt-1 block text-sm leading-relaxed transition-colors duration-200 group-hover:text-foreground ${
+                    isSelected ? 'text-foreground' : 'text-muted'
+                  }`}
+                >
+                  {p.what}
+                </span>
+              </span>
+            </button>
+          </li>
+        )
+      })}
     </ol>
   )
 }
 
-function BeenList() {
+function BeenList({ selected, onSelect }: SelectProps) {
   return (
     <ol className="border-t border-border">
       {REGIONS.map((region) => {
@@ -118,15 +143,24 @@ function BeenList() {
               <span className="tabular-nums opacity-60">{String(countries.length).padStart(2, '0')}</span>
             </div>
             <ul className="flex flex-wrap gap-x-5 gap-y-1.5">
-              {countries.map((c) => (
-                <li
-                  key={c.id}
-                  data-country={c.id}
-                  className="cursor-default text-sm text-muted transition-colors duration-200 hover:text-foreground"
-                >
-                  {c.label}
-                </li>
-              ))}
+              {countries.map((c) => {
+                const isSelected = selected === c.id
+                return (
+                  <li key={c.id} data-country={c.id}>
+                    <button
+                      type="button"
+                      aria-pressed={isSelected}
+                      data-selected={isSelected || undefined}
+                      onClick={() => onSelect(c.id)}
+                      className={`pressable hover-underline cursor-pointer text-sm hover:text-foreground ${
+                        isSelected ? 'text-foreground' : 'text-muted'
+                      }`}
+                    >
+                      {c.label}
+                    </button>
+                  </li>
+                )
+              })}
             </ul>
           </li>
         )
