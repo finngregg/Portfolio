@@ -39,3 +39,154 @@ html {
 * {
   border-color: var(--border);
 }
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Motion primitives */
+
+.enter {
+  animation: enter 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.pressable {
+  transition:
+    transform 0.16s var(--ease-out),
+    color 0.2s ease;
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.hover-underline:hover::after,
+.hover-underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: ease;
+}
+
+/* Route: Johannesburg → Cape Town → Johannesburg → Tel Aviv */
+
+.route-leg {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw var(--dur) var(--ease-in-out) var(--delay) forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pop-in lives on the group so the hover scale on the dot isn't overridden by the fill */
+.route-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: stop 0.4s var(--ease-out) var(--delay) both;
+}
+
+.route-stop {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.25s var(--ease-out);
+}
+
+@keyframes stop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.route-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 2.4s var(--ease-out) var(--delay) infinite backwards;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(4);
+  }
+}
+
+.route-label {
+  animation: enter 0.5s var(--ease-out) var(--delay) both;
+  transition: color 0.2s ease;
+}
+
+/* Hovering a place in the timeline lights up its stop on the route */
+main:has([data-city='jhb']:hover) [data-stop='jhb'] .route-stop,
+main:has([data-city='cpt']:hover) [data-stop='cpt'] .route-stop,
+main:has([data-city='tlv']:hover) [data-stop='tlv'] .route-stop {
+  transform: scale(1.8);
+}
+
+main:has([data-city='jhb']:hover) .route-label[data-stop='jhb'],
+main:has([data-city='cpt']:hover) .route-label[data-stop='cpt'],
+main:has([data-city='tlv']:hover) .route-label[data-stop='tlv'] {
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .route-label {
+    animation-name: fade;
+  }
+  .route-leg {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .route-pop,
+  .route-pulse {
+    animation: none;
+  }
+  .route-pulse {
+    display: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}

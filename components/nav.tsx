@@ -4,7 +4,6 @@ import { ThemeToggle } from './theme-toggle'
 const links = [
   { href: '/work', label: 'Work' },
   { href: '/components', label: 'Components' },
-  { href: '/about', label: 'About' },
 ]
 
 export function Nav() {
@@ -13,7 +12,7 @@ export function Nav() {
       <nav className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4 sm:px-6">
         <Link
           href="/"
-          className="text-sm font-medium text-foreground hover:text-muted transition-colors duration-200"
+          className="pressable hover-underline text-sm font-medium text-foreground"
         >
           Gregg Finn
         </Link>
@@ -22,7 +21,7 @@ export function Nav() {
             <Link
               key={href}
               href={href}
-              className="text-sm text-muted hover:text-foreground transition-colors duration-200"
+              className="pressable hover-underline text-sm text-muted hover:text-foreground"
             >
               {label}
             </Link>

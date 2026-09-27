@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Footer } from '@/components/footer'
 import { Nav } from '@/components/nav'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
@@ -38,6 +39,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Nav />
           <div className="flex flex-col flex-1">{children}</div>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

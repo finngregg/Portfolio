@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
@@ -12,10 +13,27 @@ export function ThemeToggle() {
   // Render a placeholder to prevent layout shift before mount
   if (!mounted) return <div className="size-4" />
 
+  const toggle = () => {
+    const next = resolvedTheme === 'dark' ? 'light' : 'dark'
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!document.startViewTransition || reduceMotion) {
+      setTheme(next)
+      return
+    }
+
+    // Swap the class ourselves inside the transition so the "after" snapshot is
+    // correct; next-themes applies it in an effect, which lands too late.
+    document.startViewTransition(() => {
+      document.documentElement.classList.toggle('dark', next === 'dark')
+      flushSync(() => setTheme(next))
+    })
+  }
+
   return (
     <button
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="text-muted hover:text-foreground transition-colors duration-200 cursor-pointer"
+      onClick={toggle}
+      className="pressable text-muted hover:text-foreground cursor-pointer"
       aria-label="Toggle theme"
     >
       {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
