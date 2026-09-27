@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import Image from 'next/image'
+import { Gallery, type Photo } from '@/components/gallery/gallery'
 import { Globe } from '@/components/globe/globe'
 
 const places = [
@@ -23,18 +23,18 @@ const places = [
   },
 ]
 
-const photos = [
-  { src: '/images/tel-aviv-wing-foiling.jpg', location: 'Tel Aviv, Israel' },
-  { src: '/images/cape-town-clifton-beach.jpg', location: 'Clifton Beach, Cape Town' },
-  { src: '/images/cape-town-sunset-rocks.jpg', location: 'Sea Point, Cape Town' },
-  { src: '/images/cape-town-golden-hour.jpg', location: "Lion's Head, Cape Town" },
-  { src: '/images/kyoto-kamo-river.jpg', location: 'Kamo River, Kyoto' },
-  { src: '/images/kyoto-arashiyama-bridge.jpg', location: 'Arashiyama, Kyoto' },
-  { src: '/images/florence-duomo-sunset.jpg', location: 'Piazzale Michelangelo, Florence' },
-  { src: '/images/rome-vatican-staircase.jpg', location: 'Vatican Museums, Rome' },
-  { src: '/images/seoul-gyeongbokgung.jpg', location: 'Gyeongbokgung Palace, Seoul' },
-  { src: '/images/copenhagen-rundetarn.jpg', location: 'Rundetårn, Copenhagen' },
-  { src: '/images/florence-uffizi-doni-tondo.jpg', location: 'Uffizi Gallery, Florence' },
+const photos: Photo[] = [
+  { src: '/images/tel-aviv-wing-foiling.jpg', location: 'Tel Aviv, Israel', coords: [32.08, 34.77] },
+  { src: '/images/cape-town-clifton-beach.jpg', location: 'Clifton Beach, Cape Town', coords: [-33.94, 18.38] },
+  { src: '/images/cape-town-sunset-rocks.jpg', location: 'Sea Point, Cape Town', coords: [-33.92, 18.38] },
+  { src: '/images/cape-town-golden-hour.jpg', location: "Lion's Head, Cape Town", coords: [-33.94, 18.39] },
+  { src: '/images/kyoto-kamo-river.jpg', location: 'Kamo River, Kyoto', coords: [35.01, 135.77] },
+  { src: '/images/kyoto-arashiyama-bridge.jpg', location: 'Arashiyama, Kyoto', coords: [35.01, 135.68] },
+  { src: '/images/florence-duomo-sunset.jpg', location: 'Piazzale Michelangelo, Florence', coords: [43.76, 11.27] },
+  { src: '/images/rome-vatican-staircase.jpg', location: 'Vatican Museums, Rome', coords: [41.91, 12.45] },
+  { src: '/images/seoul-gyeongbokgung.jpg', location: 'Gyeongbokgung Palace, Seoul', coords: [37.58, 126.98] },
+  { src: '/images/copenhagen-rundetarn.jpg', location: 'Rundetårn, Copenhagen', coords: [55.68, 12.58] },
+  { src: '/images/florence-uffizi-doni-tondo.jpg', location: 'Uffizi Gallery, Florence', coords: [43.77, 11.26] },
   { src: '/images/puglia-castello-elvira.jpg', location: 'Castello Elvira, Puglia' },
 ]
 
@@ -102,21 +102,7 @@ export default function Home() {
             A selection of photographs from the 30 countries I have visited.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {photos.map((photo) => (
-            <figure key={photo.src}>
-              <Image
-                src={photo.src}
-                alt={photo.location}
-                width={750}
-                height={1000}
-                className="block h-auto w-full"
-                sizes="(max-width: 672px) 50vw, 336px"
-              />
-              <figcaption className="mt-1.5 text-xs text-muted">{photo.location}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <Gallery photos={photos} />
       </section>
     </main>
   )
