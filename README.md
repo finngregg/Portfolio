@@ -1,6 +1,6 @@
 # greggfinn.vercel.app
 
-Personal portfolio site. Built to prove a pivot from frontend engineer to design engineer — through the site itself, through case studies, and through open-source components.
+Personal portfolio site. Product engineer with a frontend specialism — shown through the site itself and through mini projects and components taken from idea to interface.
 
 ## Stack
 
@@ -24,10 +24,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 app/
-  page.tsx          Home
-  work/             Case studies
-  components/       Open-source component demos
-  about/            About + photos
-components/         Shared UI components
+  page.tsx          Home: intro, route animation, places timeline, photos
+  work/             Mini projects and components
+components/         Shared UI (nav, footer, route, theme)
 public/images/      Photography
 ```

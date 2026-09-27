@@ -4,18 +4,6 @@ import { Route } from '@/components/route'
 
 const places = [
   {
-    city: 'tlv',
-    years: '2024 – Now',
-    place: 'Tel Aviv',
-    what: 'Frontend engineer at Business Science Corporation, remote. Building Tandem, a community app for people who want to work out together.',
-  },
-  {
-    city: 'jhb',
-    years: '2021 – 2024',
-    place: 'Johannesburg',
-    what: 'Joined Business Science Corporation straight out of university. Five years of React and TypeScript across fintech and B2B SaaS.',
-  },
-  {
     city: 'cpt',
     years: '2018 – 2021',
     place: 'Cape Town',
@@ -23,9 +11,15 @@ const places = [
   },
   {
     city: 'jhb',
-    years: 'Until 2016',
+    years: '2021 – 2024',
     place: 'Johannesburg',
-    what: 'Grew up here. School at King David Linksfield.',
+    what: 'Software engineer at Business Science Corporation, delivering products for clients in financial services and B2B SaaS, from requirements through to release.',
+  },
+  {
+    city: 'tlv',
+    years: '2024 – Present',
+    place: 'Tel Aviv',
+    what: 'Continuing with Business Science Corporation remotely. Building Tandem, a community fitness app, leading its product direction, design and development.',
   },
 ]
 
@@ -54,18 +48,17 @@ export default function Home() {
           Gregg Finn
         </h1>
         <p className="enter mt-3 font-mono text-[11px] uppercase tracking-[0.15em] text-muted" style={step(1)}>
-          Design engineer · Tel Aviv
+          Product engineer · Tel Aviv
         </p>
         <div className="enter mt-8 space-y-4 text-base leading-relaxed text-muted" style={step(2)}>
           <p>
-            I build interfaces that feel as good as they work. Five years of
-            frontend engineering, now moving into design engineering: the place
-            where engineering craft, design taste and product thinking are the
-            same decision.
+            I am a product engineer with five years of experience and a
+            specialism in frontend development. My work spans the full product
+            cycle: ideation, product design, feature development and delivery.
           </p>
           <p>
-            Currently consulting at Business Science Corporation while building
-            Tandem, a community app for people who want to work out together.
+            I am currently a software engineer at Business Science Corporation
+            and am building Tandem, a community fitness app.
           </p>
         </div>
       </section>
@@ -98,13 +91,13 @@ export default function Home() {
       </section>
 
       <section className="pb-24">
-        <div className="mb-6 flex items-baseline justify-between">
+        <div className="mb-6">
           <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
             Life through my eyes
           </h2>
-          <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
-            30 countries
-          </span>
+          <p className="mt-2 text-sm text-muted">
+            A selection of photographs from the 30 countries I have visited.
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {photos.map((photo) => (

@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   async redirects() {
-    return [{ source: '/about', destination: '/', permanent: true }]
+    return [
+      { source: '/about', destination: '/', permanent: true },
+      { source: '/components', destination: '/work', permanent: true },
+    ]
   },
 }
 

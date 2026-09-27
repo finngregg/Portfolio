@@ -4,16 +4,15 @@ import type { CSSProperties } from 'react'
 const BASELINE = 130
 
 const stops = [
-  { id: 'cpt', label: 'Cape Town', x: 60, delay: 1.0 },
-  { id: 'jhb', label: 'Johannesburg', x: 200, delay: 0.2 },
-  { id: 'tlv', label: 'Tel Aviv', x: 540, delay: 3.1, current: true },
+  { id: 'cpt', label: 'Cape Town', x: 60, delay: 0.2 },
+  { id: 'jhb', label: 'Johannesburg', x: 200, delay: 1.0 },
+  { id: 'tlv', label: 'Tel Aviv', x: 540, delay: 2.3, current: true },
 ] as const
 
-// The journey in order: grew up in Joburg, uni in Cape Town, back to Joburg, then Tel Aviv
+// The journey in order: university in Cape Town, work in Johannesburg, then Tel Aviv
 const legs = [
-  { d: `M200 ${BASELINE} Q130 80 60 ${BASELINE}`, delay: 0.4, dur: 0.7 },
-  { d: `M60 ${BASELINE} Q130 40 200 ${BASELINE}`, delay: 1.2, dur: 0.7 },
-  { d: `M200 ${BASELINE} Q370 -20 540 ${BASELINE}`, delay: 2.0, dur: 1.2 },
+  { d: `M60 ${BASELINE} Q130 60 200 ${BASELINE}`, delay: 0.4, dur: 0.7 },
+  { d: `M200 ${BASELINE} Q370 -20 540 ${BASELINE}`, delay: 1.2, dur: 1.2 },
 ]
 
 const vars = (v: Record<string, string>) => v as CSSProperties

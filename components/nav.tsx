@@ -1,10 +1,7 @@
 import Link from 'next/link'
 import { ThemeToggle } from './theme-toggle'
 
-const links = [
-  { href: '/work', label: 'Work' },
-  { href: '/components', label: 'Components' },
-]
+const links = [{ href: '/work', label: 'Work' }]
 
 export function Nav() {
   return (
