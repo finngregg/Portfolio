@@ -1,8 +1,9 @@
 import type { CSSProperties } from 'react'
 import { Gallery, type Photo } from '@/components/gallery/gallery'
-import { Globe } from '@/components/globe/globe'
+import { Travels, type LivedPlace } from '@/components/travels'
+import { COUNTRIES } from '@/lib/places'
 
-const places = [
+const places: LivedPlace[] = [
   {
     city: 'cpt',
     years: '2018 – 2021',
@@ -63,34 +64,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="enter pb-12" style={step(3)}>
-        <Globe />
-        <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-          Drag to spin
-        </p>
-      </section>
-
-      <section className="enter pb-24" style={step(4)}>
-        <h2 className="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
-          Where I&apos;ve been
-        </h2>
-        <ol className="border-t border-border">
-          {places.map((p) => (
-            <li
-              key={p.years}
-              data-city={p.city}
-              className="group grid gap-1 border-b border-border py-5 sm:grid-cols-[8rem_1fr] sm:gap-6"
-            >
-              <span className="font-mono text-xs text-muted tabular-nums">{p.years}</span>
-              <div>
-                <p className="text-sm font-medium text-foreground">{p.place}</p>
-                <p className="mt-1 text-sm leading-relaxed text-muted transition-colors duration-200 group-hover:text-foreground">
-                  {p.what}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      <section className="enter pb-24" style={step(3)}>
+        <Travels lived={places} />
       </section>
 
       <section className="pb-24">
@@ -99,7 +74,7 @@ export default function Home() {
             Life through my eyes
           </h2>
           <p className="mt-2 text-sm text-muted">
-            A selection of photographs from the 30 countries I have visited.
+            A selection of photographs from the {COUNTRIES.length} countries I have visited.
           </p>
         </div>
         <Gallery photos={photos} />

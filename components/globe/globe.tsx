@@ -1,16 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { CITIES, COUNTRIES, CURRENT_CITY, type Place } from '@/lib/places'
 import landDots from './land-dots.json'
 
-type City = { id: string; label: string; lat: number; lon: number; side: 'left' | 'right' }
-
-const CITIES: City[] = [
-  { id: 'cpt', label: 'Cape Town', lat: -33.92, lon: 18.42, side: 'left' },
-  { id: 'jhb', label: 'Johannesburg', lat: -26.2, lon: 28.05, side: 'right' },
-  { id: 'tlv', label: 'Tel Aviv', lat: 32.08, lon: 34.78, side: 'right' },
-]
-const CURRENT = 'tlv'
+export type GlobeMode = 'lived' | 'been'
 
 // The journey in order: university in Cape Town, work in Johannesburg, then Tel Aviv
 const FLIGHTS: [number, number][] = [
@@ -21,6 +15,12 @@ const FLIGHTS: [number, number][] = [
 // Starting view frames southern Africa up to Israel, looking slightly from the west
 // so the flight arcs read as arcs rather than flat lines
 const HOME = { lat: 4, lon: 10 }
+// Most visited countries sit north of the equator, so that view tilts up while spinning
+const BEEN_LAT = 22
+
+const MODE_FADE_MS = 350
+const COUNTRY_STAGGER_MS = 35
+const COUNTRY_POP_MS = 300
 
 // Timeline (ms)
 const FORM_MS = 1400 // each dot's travel from scatter into the globe
@@ -41,8 +41,8 @@ const clamp01 = (t: number) => Math.min(1, Math.max(0, t))
 const wrapDeg = (d: number) => ((((d + 180) % 360) + 360) % 360) - 180
 
 // Points on the great circle between two cities, as [lat, lon] in radians plus arc height
-function flightPath(a: City, b: City) {
-  const toVec = (c: City) => {
+function flightPath(a: Place, b: Place) {
+  const toVec = (c: Place) => {
     const la = c.lat * DEG
     const lo = c.lon * DEG
     return [Math.cos(la) * Math.sin(lo), Math.sin(la), Math.cos(la) * Math.cos(lo)]
@@ -65,8 +65,14 @@ function flightPath(a: City, b: City) {
   return points
 }
 
-export function Globe() {
+export function Globe({ mode }: { mode: GlobeMode }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  // since = 0 means "still on the first load", so the lived view plays its intro
+  const modeRef = useRef({ mode, since: 0 })
+
+  useEffect(() => {
+    if (modeRef.current.mode !== mode) modeRef.current = { mode, since: performance.now() }
+  }, [mode])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -101,7 +107,7 @@ export function Globe() {
     let dragging = false
     let lastX = 0
     let lastInteraction = 0
-    let focus: City | null = null
+    let focus: Place | null = null
     let startTime = 0
 
     // Layout
@@ -167,7 +173,22 @@ export function Globe() {
       const elapsed = reduceMotion ? INTRO_MS + FORM_MS : now - startTime
       const dt = prev ? Math.min(now - prev, 50) : 16
       prev = now
-      const introDone = elapsed >= INTRO_MS
+      // Mode layers cross-fade; returning to "lived" replays the flights
+      const m = modeRef.current
+      const switched = m.since > 0
+      const fade = switched && !reduceMotion ? easeOut(clamp01((now - m.since) / MODE_FADE_MS)) : 1
+      const livedAlpha = m.mode === 'lived' ? fade : 1 - fade
+      const beenAlpha = 1 - livedAlpha
+      const livedClock =
+        m.mode === 'been' || reduceMotion
+          ? Infinity
+          : switched
+            ? now - m.since + FLIGHT_START_MS - 250
+            : elapsed
+      const beenClock = m.mode === 'been' && !reduceMotion ? now - m.since : Infinity
+      const restLat = m.mode === 'been' ? BEEN_LAT : HOME.lat
+
+      const introDone = elapsed >= INTRO_MS || switched
 
       // Rotation: timeline focus > inertia > idle auto-spin
       if (introDone && !dragging) {
@@ -181,7 +202,7 @@ export function Globe() {
           velLon *= Math.pow(0.94, dt / 16)
         } else if (!reduceMotion && now - lastInteraction > IDLE_BEFORE_SPIN_MS) {
           viewLon += (AUTO_SPIN_DEG_PER_S * dt) / 1000
-          viewLat += (HOME.lat - viewLat) * 0.01
+          viewLat += (restLat - viewLat) * 0.01
         }
       }
       rotLon = -viewLon * DEG
@@ -209,16 +230,45 @@ export function Globe() {
         ctx.fillRect(x - 0.7, y - 0.7, 1.4, 1.4)
       }
 
-      // Flight paths, drawn one after another
+      ctx.font = font
+      ctx.textBaseline = 'middle'
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '1.5px'
+
+      if (livedAlpha > 0.01) drawLived(livedClock, livedAlpha, now)
+      if (beenAlpha > 0.01) drawBeen(beenClock, beenAlpha)
+
+      ctx.globalAlpha = 1
+      raf = requestAnimationFrame(frame)
+    }
+
+    // Background-coloured halo keeps a label legible over land dots
+    const drawLabel = (place: Place, x: number, y: number, active: boolean) => {
+      const label = place.label.toUpperCase()
+      const lx = x + (place.side === 'left' ? -12 : 12)
+      ctx.textAlign = place.side === 'left' ? 'right' : 'left'
+      ctx.strokeStyle = bg
+      ctx.lineWidth = 5
+      ctx.lineJoin = 'round'
+      ctx.strokeText(label, lx, y)
+      ctx.fillStyle = active ? fg : muted
+      ctx.fillText(label, lx, y)
+      ctx.fillStyle = fg
+    }
+
+    const projectPlace = (place: Place) =>
+      project(Math.cos(place.lat * DEG), Math.sin(place.lat * DEG), place.lon * DEG)
+
+    // Where I've lived: flights drawn one after another, then the cities
+    const drawLived = (clock: number, layerAlpha: number, now: number) => {
       ctx.strokeStyle = fg
       ctx.lineWidth = 1
       ctx.lineCap = 'round'
       paths.forEach((path, f) => {
         const start = FLIGHT_START_MS + f * (FLIGHT_MS + FLIGHT_GAP_MS)
-        const progress = easeInOut(clamp01((elapsed - start) / FLIGHT_MS))
+        const progress = easeInOut(clamp01((clock - start) / FLIGHT_MS))
         if (progress <= 0) return
         const end = progress * ARC_SAMPLES
-        ctx.globalAlpha = 0.75
+        ctx.globalAlpha = 0.75 * layerAlpha
         ctx.beginPath()
         let pen = false
         let head: { x: number; y: number; z: number } | null = null
@@ -236,55 +286,61 @@ export function Globe() {
         }
         ctx.stroke()
         if (progress < 1 && head) {
-          ctx.globalAlpha = 1
+          ctx.globalAlpha = layerAlpha
           ctx.beginPath()
           ctx.arc(head.x, head.y, 2, 0, Math.PI * 2)
           ctx.fill()
         }
       })
 
-      // Cities
-      ctx.font = font
-      ctx.textBaseline = 'middle'
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '1.5px'
       CITIES.forEach((city, index) => {
-        const shownFor = elapsed - cityAppearsAt(index)
+        const shownFor = clock - cityAppearsAt(index)
         if (shownFor < 0) return
-        const p = project(Math.cos(city.lat * DEG), Math.sin(city.lat * DEG), city.lon * DEG)
+        const p = projectPlace(city)
         if (p.z <= 0) return
         const appear = easeOut(clamp01(shownFor / 400))
         const active = focus?.id === city.id
-        const edgeFade = clamp01(p.z * 4)
+        const alpha = clamp01(p.z * 4) * layerAlpha
 
-        if (city.id === CURRENT && !reduceMotion) {
-          const pulse = (shownFor % 2400) / 2400
-          ctx.globalAlpha = 0.5 * (1 - pulse) * edgeFade
+        if (city.id === CURRENT_CITY && !reduceMotion) {
+          const pulse = (now % 2400) / 2400
+          ctx.globalAlpha = 0.5 * (1 - pulse) * alpha
           ctx.beginPath()
           ctx.arc(p.x, p.y, 3 + pulse * 10, 0, Math.PI * 2)
           ctx.fill()
         }
 
-        ctx.globalAlpha = appear * edgeFade
-        ctx.fillStyle = fg
+        ctx.globalAlpha = appear * alpha
         ctx.beginPath()
         ctx.arc(p.x, p.y, (active ? 4.5 : 3) * appear, 0, Math.PI * 2)
         ctx.fill()
-
-        // Background-coloured halo keeps the label legible over land dots
-        const label = city.label.toUpperCase()
-        const lx = p.x + (city.side === 'left' ? -12 : 12)
-        ctx.textAlign = city.side === 'left' ? 'right' : 'left'
-        ctx.strokeStyle = bg
-        ctx.lineWidth = 5
-        ctx.lineJoin = 'round'
-        ctx.strokeText(label, lx, p.y)
-        ctx.fillStyle = active ? fg : muted
-        ctx.fillText(label, lx, p.y)
-        ctx.fillStyle = fg
+        drawLabel(city, p.x, p.y, active)
       })
+    }
 
-      ctx.globalAlpha = 1
-      raf = requestAnimationFrame(frame)
+    // Where I've been: every country pops in, no connecting lines. Only the one
+    // being hovered in the list is labelled, so the globe stays uncluttered.
+    const drawBeen = (clock: number, layerAlpha: number) => {
+      let labelled: { place: Place; x: number; y: number; alpha: number } | null = null
+      for (let index = 0; index < COUNTRIES.length; index++) {
+        const country = COUNTRIES[index]
+        const appear = easeOut(clamp01((clock - index * COUNTRY_STAGGER_MS) / COUNTRY_POP_MS))
+        if (appear <= 0) continue
+        const p = projectPlace(country)
+        if (p.z <= 0) continue
+        const active = focus?.id === country.id
+        const alpha = clamp01(p.z * 4) * layerAlpha
+        ctx.globalAlpha = appear * alpha * (active ? 1 : 0.85)
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, (active ? 4.5 : 2.5) * appear, 0, Math.PI * 2)
+        ctx.fill()
+        if (active) labelled = { place: country, x: p.x, y: p.y, alpha }
+      }
+      // Label last so it sits above neighbouring markers
+      if (labelled) {
+        ctx.globalAlpha = labelled.alpha
+        drawLabel(labelled.place, labelled.x, labelled.y, true)
+      }
     }
 
     // Only animate while the globe is on screen
@@ -344,14 +400,20 @@ export function Globe() {
     canvas.addEventListener('pointerup', onUp)
     canvas.addEventListener('pointercancel', onUp)
 
-    // Hovering a place in the timeline turns the globe to that city
+    // Hovering a place in the lists below turns the globe to it
+    const PLACE_SELECTOR = '[data-city], [data-country]'
     const onOver = (e: PointerEvent) => {
-      const row = (e.target as Element).closest?.('[data-city]')
-      const city = row && CITIES.find((c) => c.id === row.getAttribute('data-city'))
-      if (city) focus = city
+      const row = (e.target as Element).closest?.(PLACE_SELECTOR)
+      if (!row) return
+      const cityId = row.getAttribute('data-city')
+      const countryId = row.getAttribute('data-country')
+      const place = cityId
+        ? CITIES.find((c) => c.id === cityId)
+        : COUNTRIES.find((c) => c.id === countryId)
+      if (place) focus = place
     }
     const onOut = (e: PointerEvent) => {
-      const row = (e.target as Element).closest?.('[data-city]')
+      const row = (e.target as Element).closest?.(PLACE_SELECTOR)
       if (row && !row.contains(e.relatedTarget as Node)) {
         focus = null
         lastInteraction = performance.now()
@@ -374,7 +436,11 @@ export function Globe() {
     <canvas
       ref={canvasRef}
       role="img"
-      aria-label="A dotted globe tracing a route from Cape Town to Johannesburg to Tel Aviv"
+      aria-label={
+        mode === 'lived'
+          ? 'A dotted globe tracing a route from Cape Town to Johannesburg to Tel Aviv'
+          : `A dotted globe marking the ${COUNTRIES.length} countries I have visited`
+      }
       className="block aspect-[4/3] w-full cursor-grab touch-pan-y active:cursor-grabbing"
     />
   )
