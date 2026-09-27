@@ -24,8 +24,10 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 app/
-  page.tsx          Home: intro, route animation, places timeline, photos
+  page.tsx          Home: intro, globe, places timeline, photos
   work/             Mini projects and components
-components/         Shared UI (nav, footer, route, theme)
+components/         Shared UI (nav, footer, theme)
+  globe/            Dotted canvas globe + generated land dots
+scripts/            generate-land-dots.mjs rebuilds globe/land-dots.json
 public/images/      Photography
 ```

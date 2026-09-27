@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import Image from 'next/image'
-import { Route } from '@/components/route'
+import { Globe } from '@/components/globe/globe'
 
 const places = [
   {
@@ -64,7 +64,10 @@ export default function Home() {
       </section>
 
       <section className="enter pb-12" style={step(3)}>
-        <Route />
+        <Globe />
+        <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
+          Drag to spin
+        </p>
       </section>
 
       <section className="enter pb-24" style={step(4)}>
