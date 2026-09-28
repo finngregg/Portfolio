@@ -35,7 +35,7 @@ const photos: Photo[] = [
   { src: '/images/seoul-gyeongbokgung.jpg', location: 'Gyeongbokgung Palace, Seoul', coords: [37.58, 126.98] },
   { src: '/images/copenhagen-rundetarn.jpg', location: 'Rundetårn, Copenhagen', coords: [55.68, 12.58] },
   { src: '/images/florence-uffizi-doni-tondo.jpg', location: 'Uffizi Gallery, Florence', coords: [43.77, 11.26] },
-  { src: '/images/puglia-castello-elvira.jpg', location: 'Castello Elvira, Puglia' },
+  { src: '/images/puglia-castello-elvira.jpg', location: 'Castello Elvira, Puglia', coords: [40.42, 18.06] },
 ]
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
