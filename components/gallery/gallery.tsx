@@ -21,6 +21,12 @@ function applyFocus(el: HTMLElement, focus: number) {
   el.style.transform = `scale(${0.94 + 0.06 * f})`
 }
 
+// Captions are stacked in one spot and only fade, never move. Each is visible only in
+// the closer half of its slide's travel, so neighbours hand over without overlapping.
+function applyCaptionFocus(el: HTMLElement, focus: number) {
+  el.style.opacity = String(easeInOut(clamp01((focus - 0.5) / 0.5)))
+}
+
 function formatCoords([lat, lon]: [number, number]) {
   const f = (v: number, pos: string, neg: string) => `${Math.abs(v).toFixed(2)}° ${v >= 0 ? pos : neg}`
   return `${f(lat, 'N', 'S')}, ${f(lon, 'E', 'W')}`
@@ -30,6 +36,7 @@ export function Gallery({ photos }: { photos: Photo[] }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const slideRefs = useRef<(HTMLDivElement | null)[]>([])
   const frameRefs = useRef<(HTMLDivElement | null)[]>([])
+  const captionRefs = useRef<(HTMLDivElement | null)[]>([])
   const [active, setActive] = useState(0)
 
   useEffect(() => {
@@ -56,7 +63,10 @@ export function Gallery({ photos }: { photos: Photo[] }) {
           nearestDist = dist
           nearest = i
         }
-        applyFocus(frame, clamp01(1 - dist / rect.width))
+        const focus = clamp01(1 - dist / rect.width)
+        applyFocus(frame, focus)
+        const caption = captionRefs.current[i]
+        if (caption) applyCaptionFocus(caption, focus)
       })
 
       if (nearest !== current) {
@@ -126,8 +136,6 @@ export function Gallery({ photos }: { photos: Photo[] }) {
     })
   }
 
-  const photo = photos[active]
-
   return (
     <div role="region" aria-roledescription="carousel" aria-label="Photographs" className="@container">
       {/* Padding of half the leftover width lets the first and last slides sit centred */}
@@ -170,14 +178,28 @@ export function Gallery({ photos }: { photos: Photo[] }) {
       </div>
 
       <div className="mt-5 flex items-start justify-between gap-6">
-        <div key={active} className="enter min-w-0">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted tabular-nums">
-            {String(active + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}
-          </p>
-          <p className="mt-1.5 text-sm text-foreground">{photo.location}</p>
-          {photo.coords && (
-            <p className="mt-0.5 font-mono text-[11px] text-muted tabular-nums">{formatCoords(photo.coords)}</p>
-          )}
+        {/* Every caption shares one grid cell, so the block keeps a fixed height and
+            captions cross-fade in place as the photos move */}
+        <div className="grid min-w-0">
+          {photos.map((p, i) => (
+            <div
+              key={p.src}
+              ref={(el) => {
+                captionRefs.current[i] = el
+              }}
+              aria-hidden={i !== active}
+              style={{ opacity: i === 0 ? 1 : 0 }}
+              className="col-start-1 row-start-1 will-change-[opacity]"
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted tabular-nums">
+                {String(i + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}
+              </p>
+              <p className="mt-1.5 text-sm text-foreground">{p.location}</p>
+              {p.coords && (
+                <p className="mt-0.5 font-mono text-[11px] text-muted tabular-nums">{formatCoords(p.coords)}</p>
+              )}
+            </div>
+          ))}
         </div>
         <div className="-mr-2 flex shrink-0 items-center">
           <ArrowButton direction="prev" disabled={active === 0} onClick={() => go(active - 1)} />
