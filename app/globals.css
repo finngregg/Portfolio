@@ -94,6 +94,41 @@ html {
   transform-origin: left;
 }
 
+/* Small live-status marker, echoing the pulse on the globe's current city */
+.status-dot {
+  position: relative;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--foreground);
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: status-pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes status-pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot::after {
+    animation: none;
+  }
+}
+
 .no-scrollbar {
   scrollbar-width: none;
 }

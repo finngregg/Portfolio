@@ -1,6 +1,6 @@
 # greggfinn.vercel.app
 
-Personal portfolio site. Product engineer with a frontend specialism — shown through the site itself and through mini projects and components taken from idea to interface.
+Personal portfolio site. Software engineer with a frontend specialism — shown through the site itself and through mini projects and components taken from idea to interface.
 
 ## Stack
 

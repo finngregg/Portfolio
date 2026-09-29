@@ -43,3 +43,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 PORTFOLIO_BRIEF.md
+
+# personal documents (CVs contain phone numbers; never publish)
+*.docx
+*.doc
+/cv/

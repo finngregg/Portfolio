@@ -43,18 +43,19 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 sm:px-6">
-      <section className="pt-24 pb-12">
+      <section className="pt-20 pb-12">
         <h1 className="enter text-2xl font-semibold tracking-tight text-foreground" style={step(0)}>
           Gregg Finn
         </h1>
         <p className="enter mt-3 font-mono text-[11px] uppercase tracking-[0.15em] text-muted" style={step(1)}>
-          Product engineer · Tel Aviv
+          Software engineer · Tel Aviv
         </p>
         <div className="enter mt-8 space-y-4 text-base leading-relaxed text-muted" style={step(2)}>
           <p>
-            I am a product engineer with five years of experience and a
-            specialism in frontend development. My work spans the full product
-            cycle: ideation, product design, feature development and delivery.
+            I am a software engineer with five years of experience building
+            client-facing fintech and SaaS platforms, with a specialism in
+            frontend development. I work close to product, from ideation and
+            product design through feature development and delivery.
           </p>
           <p>
             I am currently a software engineer at Business Science Corporation

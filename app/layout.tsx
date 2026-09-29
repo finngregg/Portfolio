@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Gregg Finn, Product Engineer',
+    default: 'Gregg Finn, Software Engineer',
     template: '%s / Gregg Finn',
   },
   description:
-    'Product engineer based in Tel Aviv, specialising in frontend. Ideation, product design, feature development and delivery.',
+    'Software engineer based in Tel Aviv, specialising in frontend. Client-facing fintech and SaaS platforms, from ideation through delivery.',
 }
 
 export default function RootLayout({
