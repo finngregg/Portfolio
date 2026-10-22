@@ -62,7 +62,7 @@ export default function TandemPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 sm:px-6">
       <header className="pt-20 pb-12">
-        <div className="enter -ml-[22px] text-foreground">
+        <div className="enter flex justify-center text-foreground">
           <DotLogo size={96} markSize={110} />
         </div>
         <h1 className="enter mt-6 text-2xl font-semibold tracking-tight text-foreground" style={step(2)}>
