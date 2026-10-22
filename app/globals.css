@@ -43,6 +43,8 @@ html {
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  /* Tandem's one colour: anything happening now */
+  --live: #d6f53a;
 }
 
 /* Motion primitives */
@@ -94,13 +96,25 @@ html {
   transform-origin: left;
 }
 
-/* Small live-status marker, echoing the pulse on the globe's current city */
+/* Small live-status marker, echoing the pulse on the globe's current city.
+   Rendered by components/tandem/status-dot.tsx, the same dot Tandem uses. */
 .status-dot {
   position: relative;
-  width: 5px;
-  height: 5px;
+  flex: none;
+  width: var(--dot-size, 5px);
+  height: var(--dot-size, 5px);
   border-radius: 9999px;
   background: var(--foreground);
+}
+
+/* Lime is light: a point bigger on light backgrounds so it holds its own on white */
+.status-dot[data-live] {
+  --dot-size: 6px;
+  background: var(--live);
+}
+
+.dark .status-dot[data-live] {
+  --dot-size: 5px;
 }
 
 .status-dot::after {
@@ -126,6 +140,56 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .status-dot::after {
     animation: none;
+  }
+}
+
+/* Inline "working": three dots, each fading up over 320ms and back over 420ms, in turn */
+.dot-pulse > span {
+  width: var(--dot-size, 5px);
+  height: var(--dot-size, 5px);
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.25;
+  animation: dot-pulse 740ms infinite backwards;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+
+@keyframes dot-pulse {
+  0% {
+    opacity: 0.25;
+    animation-timing-function: var(--ease-out);
+  }
+  43.24% {
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot-pulse > span {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* A map pin appearing when stacks split or merge */
+.pin-in {
+  animation: pin-in 0.22s var(--ease-out) both;
+}
+
+@keyframes pin-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pin-in {
+    animation-name: fade;
   }
 }
 

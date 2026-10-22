@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import Link from 'next/link'
 import { Gallery, type Photo } from '@/components/gallery/gallery'
 import { Travels, type LivedPlace } from '@/components/travels'
 
@@ -59,7 +60,11 @@ export default function Home() {
           </p>
           <p>
             I am currently a software engineer at Business Science Corporation
-            and am building Tandem, a community fitness app.
+            and am building{' '}
+            <Link href="/tandem" className="hover-underline text-foreground">
+              Tandem
+            </Link>
+            , a community fitness app.
           </p>
         </div>
       </section>
