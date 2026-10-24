@@ -8,7 +8,7 @@ import { StatusDot } from '@/components/tandem/status-dot'
 export const metadata: Metadata = {
   title: 'Tandem',
   description:
-    'Find what’s on around you, and the people to do it with. Co-founded with Adam Angel. Product, design and development by Gregg Finn.',
+    'A community app for finding your people, the ones who do what you do and do it like you do, and what’s on around you. Co-founded with Adam Angel. Product, design and development by Gregg Finn.',
 }
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
@@ -69,8 +69,8 @@ export default function TandemPage() {
           Tandem
         </h1>
         <p className="enter mt-3 max-w-md text-base leading-relaxed text-muted" style={step(3)}>
-          Find what&apos;s on around you, and the people to do it with. Co-founded with Adam Angel. I lead product,
-          design and development.
+          A community app for finding your people, the ones who do what you do and do it like you do, and what&apos;s on
+          around you. Co-founded with Adam Angel. I lead product, design and development.
         </p>
         <dl className="enter mt-10 border-t border-border" style={step(4)}>
           {facts.map(({ label, value }) => (
@@ -83,16 +83,26 @@ export default function TandemPage() {
       </header>
 
       <div className="enter" style={step(5)}>
-        <Section title="The problem">
+        <Section title="Why Tandem">
           <p>
-            It started with long runs. People training for a half marathon, a marathon or a long ride often end up doing
-            their longest sessions alone, because finding someone free at the same time, at the same pace and training for
-            the same thing is hard to arrange. Run clubs help, but most of their runs stop at 5 or 10 km.
+            We live in an incredibly social and, at the same time, very antisocial era. People want to be fit, and
+            it&apos;s much easier to be fit with others. But plenty of people are intimidated: they don&apos;t know how to
+            start, where to go, who&apos;s a beginner, or who they&apos;d be going with.
           </p>
           <p>
-            Building it showed the problem is wider. People want to know what&apos;s on near them, from a club run or a
-            padel game to a ride or a studio class, and who they&apos;d be doing it with. Tandem shows both, and builds
-            enough trust between strangers that they actually meet.
+            Even if you go to a run club, you don&apos;t know every run, or who from the club is out during the week. You
+            meet a handful of people, not everybody. Put it all on a map in front of you, and you can see what&apos;s on,
+            who&apos;s going, and join them.
+          </p>
+          <p>
+            That&apos;s what Tandem is for: real connections, in person. Finding your people, the ones who do what you do
+            and do it like you do. Keeping clubs and their members in touch through the week. Giving clubs, Pilates
+            studios and everyone else who runs something the exposure to be found.
+          </p>
+          <p>
+            It started with long runs: an app for finding someone to do your longest sessions with. Plenty of people want
+            to train for endurance together, and not everyone has a community of a hundred people to do it with. That&apos;s
+            still in it, but Tandem has become much more than that.
           </p>
         </Section>
 
@@ -100,11 +110,11 @@ export default function TandemPage() {
           <Points
             items={[
               [
-                'See what’s on.',
+                'See what’s on around you.',
                 <>
-                  Discover shows what&apos;s happening near you, on a map and in a list: runs, rides, padel games and
-                  studio classes. Each pin says when it starts, how far it goes and whether it&apos;s at your pace, and one
-                  search covers sessions, clubs and people. <Demo id="map-pins">Try the map</Demo>.
+                  Discover shows everything happening near you, on a map and in a list: club runs, rides, padel games and
+                  studio classes, and who&apos;s going. Each pin says when it starts, how far it goes and whether it&apos;s
+                  at your pace, so you can see where you&apos;d fit in. <Demo id="map-pins">Try the map</Demo>.
                 </>,
               ],
               [
@@ -112,12 +122,12 @@ export default function TandemPage() {
                 'Creating a session takes five short steps: what, when, where, how far, then a check. Distance, length and pace are wheels with sensible defaults for each sport, and the end time works itself out.',
               ],
               [
-                'Meet people who train like you.',
+                'Find your people.',
                 'Find people ranks everyone near you on shared goals, sports, pace and partners, and says in one line what you have in common. Profiles lead with people: sessions done, show-up rate, partners and who vouches for them.',
               ],
               [
                 'Clubs and studios.',
-                'A club hosts one-off and weekly sessions the same way a person does. A studio is a club with a booking link: its classes are booked on its own site, so tapping Book doesn’t mark you as going. When you come back, Tandem asks whether you got a place.',
+                'Clubs post their weekly sessions and keep members in touch on a club board, so people can find each other through the week, not only at the big group run. A studio is a club with a booking link: its classes are booked on its own site, so tapping Book doesn’t mark you as going. When you come back, Tandem asks whether you got a place.',
               ],
               [
                 'On the day.',
@@ -126,9 +136,10 @@ export default function TandemPage() {
               [
                 'After the session.',
                 <>
-                  The workout from your own watch sits beside the session, and you can see how the group ran. Share it as
-                  a story card, a sticker for your own photo, or a poster with your numbers set behind you, and vouch for
-                  the people you&apos;d train with again. <Demo id="story-card">Try the story card</Demo>.
+                  Your workouts come in by themselves from Apple Health: one that fits a session goes with it, and any
+                  other is kept as a solo session. See how the group went, share it as a story card, a sticker for your
+                  own photo or a poster with your numbers set behind you, and vouch for the people you&apos;d train with
+                  again. <Demo id="story-card">Try the story card</Demo>.
                 </>,
               ],
             ]}
@@ -157,7 +168,7 @@ export default function TandemPage() {
             items={[
               [
                 'It never records workouts.',
-                'People already track their training with a watch or an app they love. Tandem brings that workout in from Apple Health and shows it beside the session.',
+                'People already track their training with a watch or an app they love. Tandem brings those workouts in from Apple Health and puts them with the sessions they belong to.',
               ],
               [
                 'It never tracks location live.',
@@ -170,8 +181,7 @@ export default function TandemPage() {
 
         <Section title="Built on trust">
           <p>
-            Meeting a stranger for a three-hour run takes trust, so it&apos;s built into the basics rather than added on
-            later.
+            Meeting someone new to train with takes trust, so it&apos;s built into the basics rather than added on later.
           </p>
           <Points
             items={[

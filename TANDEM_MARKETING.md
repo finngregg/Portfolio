@@ -10,23 +10,19 @@ should sell Tandem as it is now, and show Gregg's product design thinking, not a
 
 ---
 
-## 1. The positioning (changed)
+## 1. The positioning (changed again, 25 October)
 
-**Old:** a training partner app for endurance athletes (long runs, marathons).
-**New:** *Find what's on around you, and the people to do it with.* Everything happening near you
-(run clubs, padel, rides, studio classes with booking links), not only endurance, and the people to do
-it with. Endurance is still where it started and still the sharpest example.
+**Read `/Users/greggfinn/Documents/Tandem/docs/positioning.md` first: it is the source and wins over anything here.**
 
-Use the same line as the App Store, so the site and the store say one thing:
+Tandem is about **community**: finding your people, the ones who do what you do and do it like you do, and
+knowing what's on around you. Fitness is easier together; many people are intimidated and don't know where to
+start. Tandem keeps clubs and their members connected through the week, gives clubs and studios exposure, and
+puts what's happening on a map in front of you. It started as a long-run partner app; that's the origin story only.
 
-- Subtitle: **Sessions and people near you**
-- Lead: *Find what's on around you, and the people to do it with. Run clubs, padel games, long rides,
-  studio classes and the Sunday long run: Tandem shows what's happening near you and who's going, so
-  you never have to train alone.*
+**Never put run clubs down** (they are what Tandem serves) and **never name or knock other apps**.
 
-Status: **in testing on TestFlight**, launching on the App Store from Tel Aviv, globally (never "a
-Cape Town app" or one city). Android follows the launch. Co-founded with **Adam Angel**: credit him
-wherever the work is described as a whole.
+The App Store now says: subtitle **Find your people near you**; lead *Tandem is for finding your people: the
+ones who do what you do, and do it like you do.*
 
 ## 2. What to say, and how
 
