@@ -5,7 +5,7 @@ import { StatusDot } from './status-dot'
 
 // Tandem's Discover map pins, ported from SessionPin, DeckPin and groupPins in the app's
 // DiscoverMap.tsx. Pins stay minimal but carry meaning in their styling: solid = at your
-// pace, outline = not, lime = today, faded = full, ↻ = weekly. Selection never changes a
+// pace, outline = not, green = today, faded = full, ↻ = weekly. Selection never changes a
 // pin's size (MapKit anchors a marker by its first measured size, so a growing pin
 // jumped): a ring that is always there, transparent until selected, keeps the box fixed.
 

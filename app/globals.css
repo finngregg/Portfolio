@@ -44,7 +44,7 @@ html {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   /* Tandem's one colour: anything happening now */
-  --live: #d6f53a;
+  --live: #2eb872;
 }
 
 /* Motion primitives */
@@ -107,14 +107,9 @@ html {
   background: var(--foreground);
 }
 
-/* Lime is light: a point bigger on light backgrounds so it holds its own on white */
+/* Tandem's live green (#2EB872, back from lime on 2026-10-24: lime nearly disappeared on white) */
 .status-dot[data-live] {
-  --dot-size: 6px;
   background: var(--live);
-}
-
-.dark .status-dot[data-live] {
-  --dot-size: 5px;
 }
 
 .status-dot::after {

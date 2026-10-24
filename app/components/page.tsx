@@ -22,9 +22,9 @@ const pieces: Piece[] = [
   {
     id: 'status-dot',
     title: 'Live Dot',
-    why: 'Tandem uses one colour: lime, for anything happening right now. The grey version marks work in progress on this site.',
+    why: 'Tandem uses one colour: green, for anything happening right now. The grey version marks work in progress on this site.',
     detail:
-      'Every 2.4 seconds a ring grows to three and a half times the dot’s size and fades out, so it reads as a calm pulse rather than a blink. On light backgrounds the lime dot is a pixel larger so it stays visible.',
+      'Every 2.4 seconds a ring grows to three and a half times the dot’s size and fades out, so it reads as a calm pulse rather than a blink.',
     demo: (
       <div className="flex items-center gap-10 font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
         <span className="inline-flex items-center gap-2.5">

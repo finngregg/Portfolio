@@ -20,7 +20,8 @@ const PEOPLE_TOP = 299
 const PEOPLE_H = 232
 const TYPE_Y = Math.min(470, Math.max(120, PEOPLE_TOP + PEOPLE_H * 0.12 - 30))
 
-const LIME = '#D6F53A'
+// White or black type, as in the app (2026-10-24: black replaced lime)
+const BLACK = '#0D0D0D'
 
 // A loose hand-drawn line where the route goes, as the app draws one without GPS
 const route = [0, 0.12, 0.3, 0.5, 0.7, 0.88, 1]
@@ -39,10 +40,10 @@ function TandemDots() {
 
 export function Poster() {
   const [look, setLook] = useState<'mono' | 'colour'>('colour')
-  const [accent, setAccent] = useState<'white' | 'lime'>('lime')
+  const [accent, setAccent] = useState<'white' | 'black'>('white')
   const [depth, setDepth] = useState<'on' | 'off'>('on')
 
-  const ink = accent === 'lime' ? LIME : '#FFFFFF'
+  const ink = accent === 'black' ? BLACK : '#FFFFFF'
   // Black and white is the same photo through a filter, so the switch can cross-fade
   const tone: CSSProperties = {
     filter: look === 'mono' ? 'grayscale(1) contrast(1.08)' : 'none',
@@ -116,7 +117,7 @@ export function Poster() {
           label="Type colour"
           options={[
             { id: 'white', label: 'White' },
-            { id: 'lime', label: 'Lime' },
+            { id: 'black', label: 'Black' },
           ]}
           value={accent}
           onChange={setAccent}
