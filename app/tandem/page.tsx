@@ -106,40 +106,40 @@ export default function TandemPage() {
           </p>
         </Section>
 
-        <Section title="How it works">
+        <Section title="What it does">
           <Points
             items={[
               [
-                'See what’s on around you.',
+                'Know what’s on.',
                 <>
-                  Discover shows everything happening near you, on a map and in a list: club runs, rides, padel games and
-                  studio classes, and who&apos;s going. Each pin says when it starts, how far it goes and whether it&apos;s
-                  at your pace, so you can see where you&apos;d fit in. <Demo id="map-pins">Try the map</Demo>.
+                  Everything happening near you is on one map: club runs, rides, padel games, studio classes, and who&apos;s
+                  going to each. Every session says when it starts, how far it goes and whether it&apos;s at your pace, so
+                  starting out is less daunting: you can see where you&apos;d fit in before you go.{' '}
+                  <Demo id="map-pins">Try the map</Demo>.
                 </>,
               ],
               [
-                'Host your own.',
-                'Creating a session takes five short steps: what, when, where, how far, then a check. Distance, length and pace are wheels with sensible defaults for each sport, and the end time works itself out.',
-              ],
-              [
                 'Find your people.',
-                'Find people ranks everyone near you on shared goals, sports, pace and partners, and says in one line what you have in common. Profiles lead with people: sessions done, show-up rate, partners and who vouches for them.',
+                'People near you who do what you do, and do it like you do: the same goals, the same sport, a similar pace. Each comes with one line saying what you have in common, so it’s a person, not a profile, that you’re meeting.',
               ],
               [
-                'Clubs and studios.',
-                'Clubs post their weekly sessions and keep members in touch on a club board, so people can find each other through the week, not only at the big group run. A studio is a club with a booking link: its classes are booked on its own site, so tapping Book doesn’t mark you as going. When you come back, Tandem asks whether you got a place.',
+                'Keep your club together.',
+                'Clubs post their weekly sessions and talk to everyone on the club board. Members see who from the club is out through the week, not only at the big group run, so the people you meet once become people you train with.',
               ],
               [
-                'On the day.',
-                'Sessions you join go straight into your calendar. An hour before the start, a Live Activity counts down on the Lock Screen and Apple Watch, with who is going and directions to the meeting point.',
+                'Be found.',
+                'Anyone who runs something, from a run club to a Pilates studio, can put it where people nearby are already looking. A studio links to its own booking site; when you come back from booking, Tandem asks whether you got a place.',
               ],
               [
-                'After the session.',
+                'Make it happen.',
+                'Hosting takes a few steps, once or every week. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
+              ],
+              [
+                'Remember it together.',
                 <>
-                  Your workouts come in by themselves from Apple Health: one that fits a session goes with it, and any
-                  other is kept as a solo session. See how the group went, share it as a story card, a sticker for your
-                  own photo or a poster with your numbers set behind you, and vouch for the people you&apos;d train with
-                  again. <Demo id="story-card">Try the story card</Demo>.
+                  Your workouts come in from Apple Health by themselves and sit with the session they belong to. Afterwards
+                  there&apos;s a wrap of who you trained with, a story card to share, and a vouch for the people you&apos;d
+                  train with again. <Demo id="story-card">Try the story card</Demo>.
                 </>,
               ],
             ]}
@@ -149,32 +149,33 @@ export default function TandemPage() {
               {
                 src: '/tandem/discover.mp4',
                 poster: '/tandem/discover.jpg',
-                label: 'Discover: planned sessions on a map of Tel Aviv, each pin showing when and how far',
-                caption: 'Discover',
+                label: 'What’s on: sessions on a map, each pin showing when and how far',
+                caption: 'What’s on',
               },
               {
                 src: '/tandem/together.mp4',
                 poster: '/tandem/together.jpg',
-                label: 'After a run: two runners’ workouts drawn together, showing where one pulled ahead',
-                caption: 'After the run',
+                label: 'After a session: everyone’s workouts drawn together',
+                caption: 'Together',
               },
             ]}
           />
         </Section>
 
-        <Section title="What it deliberately isn't">
-          <p>Some of the most important decisions were about what to leave out.</p>
+        <Section title="What it isn't trying to be">
+          <p>Some of the most important decisions were about what to leave to others.</p>
           <Points
             items={[
               [
-                'It never records workouts.',
-                'People already track their training with a watch or an app they love. Tandem brings those workouts in from Apple Health and puts them with the sessions they belong to.',
+                'A tracker.',
+                'People already record their training with a watch or an app they love. Tandem brings those workouts in and puts them with the people you did them with.',
               ],
               [
-                'It never tracks location live.',
-                'The map shows planned sessions only. Nobody is ever watched.',
+                'A feed.',
+                'It isn’t about posting workouts for an audience. It’s about the next time you meet up.',
               ],
-              ['Chat is for logistics.', 'Each session has a chat for meeting up. It is not trying to be a messaging app.'],
+              ['Somewhere you’re watched.', 'The map shows planned sessions only. Nobody’s location is ever followed.'],
+              ['A chat app.', 'Each session has a chat for meeting up, and that’s all it needs to be.'],
             ]}
           />
         </Section>
