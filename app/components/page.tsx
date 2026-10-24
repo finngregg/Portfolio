@@ -8,6 +8,7 @@ import { PhotoCollage } from '@/components/tandem/photo-collage'
 import { Poster } from '@/components/tandem/poster'
 import { SegmentedDemo } from '@/components/tandem/segmented-demo'
 import { StatusDot } from '@/components/tandem/status-dot'
+import { StoryCard } from '@/components/tandem/story-card'
 
 export const metadata: Metadata = {
   title: 'Components',
@@ -94,8 +95,16 @@ const pieces: Piece[] = [
     title: 'Poster',
     why: 'After a session, any photo can become a poster to share, made entirely on the phone.',
     detail:
-      'The runners are cut out of the photo and placed on top of the text, so the distance sits behind them. Switch to Flat to see it without the cut-out.',
+      'The people are cut out of the photo and placed on top of the text, so the distance sits behind them. Switch to Flat to see it without the cut-out.',
     demo: <Poster />,
+  },
+  {
+    id: 'story-card',
+    title: 'Story Card',
+    why: 'After a session, the story card shares the numbers that matter, ready for Instagram, in one of three styles on dark or warm white.',
+    detail:
+      'In Dots, each column is one kilometre, lit higher the faster it was, with the fastest in full ink, so the top half of the card shows how the run went. Ledger lists every split on a dotted line, like a receipt.',
+    demo: <StoryCard />,
   },
 ]
 
