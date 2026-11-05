@@ -111,9 +111,9 @@ const pieces: Piece[] = [
   {
     id: 'poster',
     title: 'Poster',
-    why: 'After a session, any photo can become a poster to share, made entirely on the phone.',
+    why: 'After a session, any photo can become a poster to share, made entirely on the phone, in five typefaces with weights and italic, white or black.',
     detail:
-      'The people are cut out of the photo and placed on top of the text, so the distance sits behind them. Switch to Flat to see it without the cut-out.',
+      'The people are cut out of the photo and placed on top of the numbers, so the distance sits behind them; drag the numbers up or down to choose where. Each typeface has its own size so they all fill the same width. Switch to Flat to see it without the cut-out.',
     demo: <Poster />,
   },
   {

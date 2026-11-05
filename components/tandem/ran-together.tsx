@@ -60,12 +60,11 @@ export function RanTogether() {
     io.observe(el)
     return () => io.disconnect()
   }, [])
+  // New lines, undrawn, then drawn a frame later so the transition runs again
   const replay = () => {
     setDrawn(false)
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      setRun((r) => r + 1)
-      setDrawn(true)
-    }))
+    setRun((r) => r + 1)
+    requestAnimationFrame(() => requestAnimationFrame(() => setDrawn(true)))
   }
 
   return (
