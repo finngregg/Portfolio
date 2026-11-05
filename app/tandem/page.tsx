@@ -149,16 +149,10 @@ export default function TandemPage() {
           <Reels
             clips={[
               {
-                src: '/tandem/discover.mp4',
-                poster: '/tandem/discover.jpg',
-                label: 'What’s on: sessions on a map, each pin showing when and how far',
-                caption: 'What’s on',
-              },
-              {
-                src: '/tandem/together.mp4',
-                poster: '/tandem/together.jpg',
-                label: 'After a session: everyone’s workouts drawn together',
-                caption: 'Together',
+                src: '/tandem/plan-to-meeting.mp4',
+                poster: '/tandem/plan-to-meeting.jpg',
+                label: 'From plan to meeting: hosting a session, someone nearby joining, the chat, the Lock Screen countdown and Running late',
+                caption: 'From plan to meeting',
               },
             ]}
           />

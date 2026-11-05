@@ -26,17 +26,17 @@ type Session = {
 
 // Listed soonest first, so the soonest session leads its stack
 const sessions: Session[] = [
-  { id: 'a', title: 'Tayelet tempo', when: '18:30', km: 10, at: [262, 300], today: true, yourPace: true },
-  { id: 'd', title: 'Yarkon loop', when: '19:00', km: 8, at: [500, 92], today: true, full: true },
+  { id: 'a', title: 'Prom tempo', when: '18:30', km: 10, at: [262, 300], today: true, yourPace: true },
+  { id: 'd', title: 'Green Point loop', when: '19:00', km: 8, at: [500, 92], today: true, full: true },
   { id: 'k', title: 'Easy evening miles', when: 'WED 19:00', km: 6, at: [384, 214], yourPace: true },
   { id: 'e', title: 'Park intervals', when: 'THU 06:00', km: 12, at: [530, 104], yourPace: true },
   { id: 'i', title: 'Hill reps', when: 'FRI 17:30', km: 14, at: [440, 330], spotHidden: true },
   { id: 'f', title: 'Marathon block', when: 'SAT 06:30', km: 30, at: [214, 520] },
-  { id: 'b', title: 'Long run to Jaffa', when: 'SAT 07:00', km: 21, at: [262, 300], weekly: true },
+  { id: 'b', title: 'Long run to Clifton', when: 'SAT 07:00', km: 21, at: [262, 300], weekly: true },
   { id: 'g', title: 'Half pace', when: 'SAT 07:00', km: 25, at: [236, 510], yourPace: true },
   { id: 'h', title: 'Recovery shuffle', when: 'SAT 07:15', km: 18, at: [258, 530], weekly: true },
   { id: 'c', title: 'Beach easy run', when: 'SUN 06:30', km: 16, at: [306, 384] },
-  { id: 'j', title: 'Ayalon out and back', when: 'SUN 07:00', km: 15, at: [640, 400] },
+  { id: 'j', title: 'Main Road out and back', when: 'SUN 07:00', km: 15, at: [640, 400] },
 ]
 
 const WORLD_W = 800
@@ -69,8 +69,9 @@ function groupPins(pins: { session: Session; at: Point }[]): Group[] {
   return groups.map((g) => ({ ...g, key: g.sessions.map((s) => s.id).join('+') }))
 }
 
-// The map: a stand-in for Tel Aviv in the app's greys. The coast runs north-north-east
-// with Jaffa bulging out at the south, Yarkon Park across the north.
+// The map: a stand-in for Cape Town's Atlantic seaboard in the app's greys. The coast
+// runs north-north-east with Clifton bulging out at the south, Green Point Park across
+// the north.
 const coastX = (y: number) => 300 - y / 6 - 26 * Math.exp(-(((y - 540) / 34) ** 2))
 const coast = Array.from({ length: 101 }, (_, i) => -200 + i * 10).map((y) => `${coastX(y).toFixed(1)},${y}`)
 const sea = `-400,-200 ${coast.join(' ')} -400,800`
@@ -82,12 +83,12 @@ const crossStreets = Array.from({ length: 16 }, (_, i) => -120 + i * 55)
 const HIGHWAY = 430
 
 const labels: { text: string; at: [number, number] }[] = [
-  { text: 'Mediterranean', at: [160, 230] },
-  { text: 'Yarkon Park', at: [650, 128] },
-  { text: 'Old North', at: [400, 150] },
-  { text: 'City Centre', at: [470, 420] },
-  { text: 'Jaffa', at: [290, 580] },
-  { text: 'Ayalon', at: [700, 300] },
+  { text: 'Atlantic', at: [160, 230] },
+  { text: 'Green Point Park', at: [650, 128] },
+  { text: 'Sea Point', at: [400, 150] },
+  { text: 'City Bowl', at: [470, 420] },
+  { text: 'Clifton', at: [290, 580] },
+  { text: 'Main Road', at: [700, 300] },
 ]
 
 const lift = '0 2px 4px rgb(0 0 0 / 0.18)'
@@ -327,7 +328,7 @@ export function MapPins() {
         ref={frame}
         tabIndex={0}
         role="application"
-        aria-label="Map of sessions in Tel Aviv. Drag or use the arrow keys to move, plus and minus to zoom."
+        aria-label="Map of sessions in Cape Town. Drag or use the arrow keys to move, plus and minus to zoom."
         className="relative aspect-[3/2] w-full cursor-grab touch-none overflow-hidden rounded-xl border border-border bg-muted-bg outline-offset-2 select-none active:cursor-grabbing"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -358,7 +359,7 @@ export function MapPins() {
             <g transform={`translate(${size.w / 2 - view.cx * k} ${size.h / 2 - view.cy * k}) scale(${k})`}>
               <polygon points={sea} className="fill-border dark:fill-background" />
               <g clipPath="url(#tandem-map-land)">
-                {/* Yarkon Park with the river through it */}
+                {/* Green Point Park with the stream through it */}
                 <path d="M370 30 L1200 0 L1200 150 L470 160 Q400 150 370 30 Z" className="fill-border" opacity={0.45} />
                 <path d="M180 92 C320 70 400 120 500 82 S660 46 1200 64" fill="none" className="stroke-border dark:stroke-background" strokeWidth={9} />
                 <g className="stroke-background dark:stroke-border" fill="none" strokeLinecap="round">
@@ -371,7 +372,7 @@ export function MapPins() {
                   <path d={avenue(HIGHWAY)} strokeWidth={road(9)} vectorEffect="non-scaling-stroke" />
                 </g>
               </g>
-              {/* The Tayelet, the promenade along the beach */}
+              {/* The Promenade along the sea */}
               <polyline
                 points={coast.join(' ')}
                 transform="translate(8 0)"
