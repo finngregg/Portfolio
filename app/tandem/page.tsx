@@ -124,7 +124,7 @@ export default function TandemPage() {
               ],
               [
                 'Keep your club together.',
-                'Clubs post their weekly sessions and talk to everyone on the club board. Members see who from the club is out through the week, not only at the big group run, so the people you meet once become people you train with.',
+                'Clubs post their weekly sessions and talk to everyone on the club board. Members see who from the club is out through the week, not only at the big group run, so the people you meet once become people you train with. Each club chooses who sees it: everyone, members only, or nobody outside it.',
               ],
               [
                 'Be found.',
@@ -132,14 +132,16 @@ export default function TandemPage() {
               ],
               [
                 'Make it happen.',
-                'Hosting takes a few steps, once or every week. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
+                'Hosting takes a few steps, once or every week, and the sessions you repeat are saved as favourites: choose one and a time, and the friends you asked last time are invited again. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
               ],
               [
                 'Remember it together.',
                 <>
-                  Your workouts come in from Apple Health by themselves and sit with the session they belong to. Afterwards
-                  there&apos;s a wrap of who you trained with, a story card to share, and a vouch for the people you&apos;d
-                  train with again. <Demo id="story-card">Try the story card</Demo>.
+                  Your workouts come in from Apple Health by themselves, or only when you add them, and sit with the session
+                  they belong to. Afterwards the session tells the story of how it went: how long you ran together, who picked
+                  up the pace, the climb, how hard everyone worked. Add a note to your workout, comment on each other&apos;s,
+                  vouch for the people you&apos;d train with again, and share a story card or a poster.{' '}
+                  <Demo id="ran-together">Try the comparison</Demo>.
                 </>,
               ],
             ]}
@@ -171,8 +173,8 @@ export default function TandemPage() {
                 'People already record their training with a watch or an app they love. Tandem brings those workouts in and puts them with the people you did them with.',
               ],
               [
-                'A feed.',
-                'It isn’t about posting workouts for an audience. It’s about the next time you meet up.',
+                'A stage.',
+                'Friends see your sessions, your notes and each other’s comments, but it’s all for the people you train with and the next time you meet, not for an audience.',
               ],
               ['Somewhere you’re watched.', 'The map shows planned sessions only. Nobody’s location is ever followed.'],
               ['A chat app.', 'Each session has a chat for meeting up, and that’s all it needs to be.'],
@@ -199,6 +201,14 @@ export default function TandemPage() {
                 'Sessions for one gender.',
                 'A session or club can be for women only, men only, or women and non-binary people. Everyone else never sees it.',
               ],
+              [
+                'Clubs choose their privacy.',
+                'A club is open, members only or private. A members-only club’s sessions, members and activity stay with its members, unless a host opens a session to everyone.',
+              ],
+              [
+                'Your workouts, your call.',
+                'You choose who sees your numbers and whether workouts come in by themselves. A club can keep everyone’s workouts on its sessions to the person who recorded them, which a beginners’ group asked for.',
+              ],
               ['Real faces and names.', 'A profile photo and full name are required. Gender and age are asked for, and stay private unless you choose to show them.'],
               [
                 'Protected meeting points.',
@@ -221,12 +231,23 @@ export default function TandemPage() {
                 'Story card, sticker and poster are tabs of one dark screen, so every option is judged on the same ground. Posters cut the people out of the photo on the phone and set the distance behind them.',
               ],
               [
-                'Numbers that stay put.',
-                'A wrap that says “your 4th session” or “3rd run with Ava” is worked out as of that session, so opening an old one shows what it showed on the day.',
+                'Words before charts.',
+                <>
+                  After a group run the first thing you read is what happened: “You ran together for 7 km. Then Noah picked up
+                  the pace for the last 3 km.” Runs, rides, swims and rows compare splits; other sports compare who was there
+                  when, and how hard everyone worked. <Demo id="ran-together">Try it</Demo>.
+                </>,
+              ],
+              [
+                'Your names for places.',
+                'Save the gym down the road under your own name for it, and every session there, yours or a friend’s, shows by that name, to you. Nobody else’s view changes.',
               ],
               [
                 'Faces open people.',
-                'A session of 40 or a club of 300 shows two rows of faces and “See all”. Tapping a face anywhere opens that person, and the high five count opens who gave one.',
+                <>
+                  A session of 40 or a club of 300 shows two rows of faces and “See all”. Tapping a face anywhere opens that
+                  person, and the high five count opens who gave one. <Demo id="high-five">Try the high five</Demo>.
+                </>,
               ],
               [
                 'One visual language.',
@@ -250,6 +271,8 @@ export default function TandemPage() {
           <p>
             React Native with Expo, TypeScript, Expo Router, TanStack Query and Zustand. Supabase for Postgres, auth,
             storage, scheduled jobs and edge functions, with row-level security on every table and no separate backend.
+            PostHog for usage and Sentry for crashes, both in the EU. iOS-only pieces sit behind one seam each, so Android
+            can follow.
             Native pieces in Swift: the Live Activity, widgets and a Watch layout. Small changes ship as over-the-air
             updates; native ones as TestFlight builds.
           </p>

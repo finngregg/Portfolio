@@ -3,9 +3,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { DotLogo } from '@/components/tandem/dot-logo'
 import { DotLoader, DotPulse } from '@/components/tandem/dots'
+import { HighFive } from '@/components/tandem/high-five'
 import { MapPins } from '@/components/tandem/map-pins'
 import { PhotoCollage } from '@/components/tandem/photo-collage'
 import { Poster } from '@/components/tandem/poster'
+import { RanTogether } from '@/components/tandem/ran-together'
 import { SegmentedDemo } from '@/components/tandem/segmented-demo'
 import { StatusDot } from '@/components/tandem/status-dot'
 import { StoryCard } from '@/components/tandem/story-card'
@@ -83,12 +85,28 @@ const pieces: Piece[] = [
     demo: <MapPins />,
   },
   {
+    id: 'ran-together',
+    title: 'Ran Together',
+    why: 'After a group run, Tandem puts everyone’s workouts side by side and says what happened in plain words: how long you ran together, and who picked up the pace when.',
+    detail:
+      'Two people count as together on a kilometre when their paces are within ten seconds of each other. The headline is the longest stretch together, then what came after. Rides use speed, swims every hundred metres.',
+    demo: <RanTogether />,
+  },
+  {
     id: 'photo-collage',
     title: 'Photo Collage',
     why: 'On the Home feed, each finished session shows its photos in a single tile, so the feed stays tidy however many photos people add.',
     detail:
       'The first photo takes two thirds of the width, with two more stacked beside it. When there are more than three, the last one shows how many are left.',
     demo: <PhotoCollage />,
+  },
+  {
+    id: 'high-five',
+    title: 'High Five',
+    why: 'Under a finished session, a high five says well done without needing words. The hand gives one; the count shows who.',
+    detail:
+      'The two sat so close that a tap between them could do either, so their tap areas now stop short of each other. The hand fills and pops the moment you tap, before the server answers, and settles back if it says no.',
+    demo: <HighFive />,
   },
   {
     id: 'poster',
