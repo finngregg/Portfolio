@@ -20,10 +20,15 @@ const facts: { label: string; value: ReactNode }[] = [
   {
     label: 'Status',
     value: (
-      <span className="inline-flex items-center gap-2.5">
+      <a
+        href="https://apps.apple.com/app/id6771069787"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover-underline inline-flex items-center gap-2.5 text-foreground"
+      >
         <StatusDot live />
-        In testing on TestFlight
-      </span>
+        Live on the App Store
+      </a>
     ),
   },
 ]
@@ -132,7 +137,7 @@ export default function TandemPage() {
               ],
               [
                 'Make it happen.',
-                'Hosting takes a few steps, once or every week, and the sessions you repeat are saved as favourites: choose one and a time, and the friends you asked last time are invited again. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
+                'Hosting takes a few steps, once or every week, and the sessions you repeat are saved as favourites: choose one and a time, and it’s set up as before, with the same friends invited. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
               ],
               [
                 'Remember it together.',
@@ -229,7 +234,9 @@ export default function TandemPage() {
                 <>
                   After a group run the first thing you read is what happened: “You ran together for 7 km. Then Noah picked up
                   the pace for the last 3 km.” Runs, rides, swims and rows compare splits; other sports compare who was there
-                  when, and how hard everyone worked. <Demo id="ran-together">Try it</Demo>.
+                  when, and how hard everyone worked. Up to twenty people compare at once: past four, your line stays dark
+                  and everyone else’s turns one faint grey, and the table keeps your column while the others page across.{' '}
+                  <Demo id="ran-together">Try it</Demo>.
                 </>,
               ],
               [
@@ -268,7 +275,7 @@ export default function TandemPage() {
             PostHog for usage and Sentry for crashes, both in the EU. iOS-only pieces sit behind one seam each, so Android
             can follow.
             Native pieces in Swift: the Live Activity, widgets and a Watch layout. Small changes ship as over-the-air
-            updates; native ones as TestFlight builds.
+            updates; native ones as new App Store builds.
           </p>
         </Section>
 
