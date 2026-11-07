@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
+const APP_STORE = 'https://apps.apple.com/us/app/tandem-train-together/id6771069787'
+
 const facts: { label: string; value: ReactNode }[] = [
   { label: 'Role', value: 'Product, design and development' },
   { label: 'Team', value: 'Co-founded with Adam Angel' },
@@ -21,7 +23,7 @@ const facts: { label: string; value: ReactNode }[] = [
     label: 'Status',
     value: (
       <a
-        href="https://apps.apple.com/app/id6771069787"
+        href={APP_STORE}
         target="_blank"
         rel="noopener noreferrer"
         className="hover-underline inline-flex items-center gap-2.5 text-foreground"
@@ -77,6 +79,15 @@ export default function TandemPage() {
           A community app for finding your people, the ones who do what you do and do it like you do, and what&apos;s on
           around you. Co-founded with Adam Angel. I lead product, design and development.
         </p>
+        <a
+          href={APP_STORE}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pressable enter mt-6 inline-flex h-10 items-center rounded-full border border-border px-4 text-sm text-foreground"
+          style={step(3)}
+        >
+          Get it on the App Store
+        </a>
         <dl className="enter mt-10 border-t border-border" style={step(4)}>
           {facts.map(({ label, value }) => (
             <div key={label} className="grid grid-cols-[6rem_1fr] items-baseline gap-x-4 border-b border-border py-3">

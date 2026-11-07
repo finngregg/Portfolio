@@ -64,7 +64,16 @@ export default function Home() {
             <Link href="/tandem" className="hover-underline text-foreground">
               Tandem
             </Link>
-            , a community fitness app.
+            , a community fitness app,{' '}
+            <a
+              href="https://apps.apple.com/us/app/tandem-train-together/id6771069787"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover-underline text-foreground"
+            >
+              now on the App Store
+            </a>
+            .
           </p>
         </div>
       </section>
