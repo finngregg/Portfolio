@@ -85,7 +85,7 @@ const pieces: Piece[] = [
     title: 'Map Pins',
     why: 'Each pin on the Discover map says when a session starts, how far it goes and whether it suits your pace, before you tap anything. Tap one to select it.',
     detail:
-      'Selecting a pin swaps its colours instead of making it bigger, because Apple Maps fixes a marker’s size the first time it is drawn.',
+      'Selecting a pin draws a ring that was there all along, clear, so the pin never changes size: Apple Maps fixes a marker’s size the first time it is drawn.',
     demo: <MapPins />,
   },
 ]

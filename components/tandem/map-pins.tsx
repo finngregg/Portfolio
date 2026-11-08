@@ -5,9 +5,9 @@ import { useState } from 'react'
 // Tandem's Discover map pins, ported from SessionPin and ClubPin in the app's
 // DiscoverMap.tsx, set out as a specimen rather than on a map (2026-11-08: the
 // interactive map read as messy; then four states, to keep it short): solid = at
-// your pace, outline = not, green = today, a square for a club. Tap one to select it: the
-// colours swap and a ring appears, but the box never changes size, because MapKit
-// anchors a marker by its first measured size and a growing pin jumps.
+// your pace, outline = not, green = today, a square for a club. Tap one to select it: a
+// ring appears, but the box never changes size, because MapKit anchors a marker by its
+// first measured size and a growing pin jumps.
 
 type Pin = {
   id: string
@@ -41,14 +41,15 @@ function Runner() {
 }
 
 function PinFace({ p, selected }: { p: Pin; selected: boolean }) {
-  // Solid pins turn to outline when selected, outline pins to solid
-  const solid = p.club ? selected : (p.pace ?? false) !== selected
+  // Colours say what the pin is (solid = at your pace); selection is only the ring, so two
+  // dark pins never read as two selections (2026-11-08)
+  const solid = !p.club && (p.pace ?? false)
   const ink = solid ? 'bg-foreground text-background border-foreground' : 'bg-background text-foreground border-foreground'
   return (
     <span
       className={`inline-flex h-[30px] items-center gap-1.5 border pl-1 pr-2.5 font-mono text-[10.5px] tabular-nums transition-[background-color,color,box-shadow] duration-200 ${ink} ${p.club ? 'rounded-[9px]' : 'rounded-full'} ${p.full ? 'opacity-45' : ''}`}
       // The ring is always there, clear until selected, so the box never grows
-      style={{ boxShadow: `0 0 0 3px ${selected ? 'var(--color-border)' : 'transparent'}` }}
+      style={{ boxShadow: `0 0 0 2px var(--color-background), 0 0 0 4px ${selected ? 'var(--color-foreground)' : 'transparent'}` }}
     >
       {p.club ? (
         <span className={`flex h-[22px] w-[24px] items-center justify-center rounded-[6px] border text-[9px] ${solid ? 'border-background/30' : 'border-border bg-muted-bg'}`}>{p.initial}</span>
