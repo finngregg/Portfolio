@@ -160,7 +160,7 @@ export default function TandemPage() {
                   Everything happening near you is on one map: club runs, rides, padel games, studio classes, and who&apos;s
                   going to each. Every session says when it starts, how far it goes and whether it&apos;s at your pace, so
                   starting out is less daunting: you can see where you&apos;d fit in before you go.{' '}
-                  <Demo id="map-pins">Try the map</Demo>.
+                  <Demo id="map-pins">See the pins</Demo>.
                 </>,
               ],
               [

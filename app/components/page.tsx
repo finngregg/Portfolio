@@ -5,12 +5,10 @@ import { DotLogo } from '@/components/tandem/dot-logo'
 import { DotLoader, DotPulse } from '@/components/tandem/dots'
 import { HighFive } from '@/components/tandem/high-five'
 import { MapPins } from '@/components/tandem/map-pins'
-import { PhotoCollage } from '@/components/tandem/photo-collage'
-import { Poster } from '@/components/tandem/poster'
 import { RanTogether } from '@/components/tandem/ran-together'
 import { SegmentedDemo } from '@/components/tandem/segmented-demo'
+import { PullDots, UnreadBell, VouchPill } from '@/components/tandem/small-pieces'
 import { StatusDot } from '@/components/tandem/status-dot'
-import { StoryCard } from '@/components/tandem/story-card'
 
 export const metadata: Metadata = {
   title: 'Components',
@@ -77,28 +75,12 @@ const pieces: Piece[] = [
     demo: <SegmentedDemo />,
   },
   {
-    id: 'map-pins',
-    title: 'Map Pins',
-    why: 'Each pin on the Discover map shows when a session starts, how far it goes and whether it suits your pace, before you tap anything.',
+    id: 'pull-to-refresh',
+    title: 'Pull to Refresh',
+    why: 'Lists refresh when you pull them down. Instead of the system spinner, the logo’s dots arrive one at a time as you pull.',
     detail:
-      'Selecting a pin swaps its colours instead of making it bigger, because Apple Maps fixes a pin’s size the first time it is drawn. Zoom out and pins that would overlap combine into a stack with a count.',
-    demo: <MapPins />,
-  },
-  {
-    id: 'ran-together',
-    title: 'Ran Together',
-    why: 'After a group run, Tandem puts everyone’s workouts side by side and says what happened in plain words: how long you ran together, and who picked up the pace when.',
-    detail:
-      'Two people count as together on a kilometre when their paces are within ten seconds of each other. The headline is the longest stretch together, then what came after. Rides use speed, swims every hundred metres.',
-    demo: <RanTogether />,
-  },
-  {
-    id: 'photo-collage',
-    title: 'Photo Collage',
-    why: 'On the Home feed, each finished session shows its photos in a single tile, so the feed stays tidy however many photos people add.',
-    detail:
-      'The first photo takes two thirds of the width, with two more stacked beside it. When there are more than three, the last one shows how many are left.',
-    demo: <PhotoCollage />,
+      'Each dot fades and grows in over its own stretch of the pull, so the three fill up in order and you can see how far is far enough. Let go past the line and they turn into the pulse while it loads.',
+    demo: <PullDots />,
   },
   {
     id: 'high-five',
@@ -109,20 +91,36 @@ const pieces: Piece[] = [
     demo: <HighFive />,
   },
   {
-    id: 'poster',
-    title: 'Poster',
-    why: 'After a session, any photo can become a poster to share, made entirely on the phone, in five typefaces with weights and italic, white or black.',
+    id: 'vouch',
+    title: 'Vouch',
+    why: 'After a session, you can vouch for anyone you’d train with again. It replaced rating people, because people noticed which rating they didn’t get.',
     detail:
-      'The people are cut out of the photo and placed on top of the numbers, so the distance sits behind them; drag the numbers up or down to choose where. Each typeface has its own size so they all fill the same width. Switch to Flat to see it without the cut-out.',
-    demo: <Poster />,
+      'One vouch per person, however many sessions you share. Tapping it again takes it back quietly: nobody is told, and the count on their profile simply goes down.',
+    demo: <VouchPill />,
   },
   {
-    id: 'story-card',
-    title: 'Story Card',
-    why: 'After a session, the story card shares the numbers that matter, ready for Instagram, in one of three styles on dark or warm white.',
+    id: 'unread',
+    title: 'Unread Count',
+    why: 'New notifications show as a number on the bell, never a dot, so you know whether it’s one thing or many.',
     detail:
-      'In Dots, each column is one kilometre, lit higher the faster it was, with the fastest in full ink, so the top half of the card shows how the run went. Ledger lists every split on a dotted line, like a receipt.',
-    demo: <StoryCard />,
+      'Past nine it reads 9+, so the badge never widens enough to cover the bell. Opening it marks everything read at once, without waiting for the server, so the number is gone before the list appears.',
+    demo: <UnreadBell />,
+  },
+  {
+    id: 'map-pins',
+    title: 'Map Pins',
+    why: 'Each pin on the Discover map says when a session starts, how far it goes and whether it suits your pace, before you tap anything. Every state a pin can be in is set out here: tap one to select it.',
+    detail:
+      'Selecting a pin swaps its colours and shows a ring that was there all along, clear. Its size never changes, because Apple Maps fixes a marker’s size the first time it is drawn, and a pin that grows when selected jumps.',
+    demo: <MapPins />,
+  },
+  {
+    id: 'ran-together',
+    title: 'Ran Together',
+    why: 'After a group run, Tandem puts everyone’s workouts side by side and says what happened in plain words: how long you ran together, and who picked up the pace when.',
+    detail:
+      'Two people count as together on a kilometre when their paces are within ten seconds of each other. The headline is the longest stretch together, then what came after. Rides use speed, swims every hundred metres.',
+    demo: <RanTogether />,
   },
 ]
 
