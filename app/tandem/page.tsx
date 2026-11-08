@@ -2,8 +2,8 @@ import type { CSSProperties, ReactNode } from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Reels } from '@/components/reel'
 import { DotLogo } from '@/components/tandem/dot-logo'
+import { Phones } from '@/components/tandem/phones'
 import { StatusDot } from '@/components/tandem/status-dot'
 
 export const metadata: Metadata = {
@@ -191,14 +191,10 @@ export default function TandemPage() {
               ],
             ]}
           />
-          <Reels
-            clips={[
-              {
-                src: '/tandem/plan-to-meeting.mp4',
-                poster: '/tandem/plan-to-meeting.jpg',
-                label: 'From plan to meeting: hosting a session, someone nearby joining, the chat, the Lock Screen countdown and Running late',
-                caption: 'From plan to meeting',
-              },
+          <Phones
+            phones={[
+              { src: '/tandem/phone/5.jpg', alt: 'Hosting a session: the last step, with the plan to check before it goes out', caption: 'Host a session' },
+              { src: '/tandem/phone/7.jpg', alt: 'The Lock Screen an hour before: a countdown, who is going, Running late and Directions', caption: 'On the day' },
             ]}
           />
         </Section>
@@ -296,14 +292,10 @@ export default function TandemPage() {
               ],
             ]}
           />
-          <Reels
-            clips={[
-              {
-                src: '/tandem/poster.mp4',
-                poster: '/tandem/poster.jpg',
-                label: 'Making a poster from a run photo: switching colour, type colour and the depth effect',
-                caption: 'Poster',
-              },
+          <Phones
+            phones={[
+              { src: '/tandem/phone/9.jpg', alt: 'After a run: “You stayed together for the whole 10 km”, everyone’s splits on one chart, then the group’s pace', caption: 'How the group ran' },
+              { src: '/tandem/phone/10.jpg', alt: 'Sharing a session: a story card, sticker or poster, in black or white', caption: 'Share it' },
             ]}
           />
         </Section>
