@@ -185,8 +185,7 @@ export default function TandemPage() {
                   Your workouts come in from Apple Health by themselves, or only when you add them, and sit with the session
                   they belong to. Afterwards the session tells the story of how it went: how long you ran together, who picked
                   up the pace, the climb, how hard everyone worked. Add a note to your workout, comment on each other&apos;s,
-                  vouch for the people you&apos;d train with again, and share a story card or a poster.{' '}
-                  <Demo id="ran-together">Try the comparison</Demo>.
+                  vouch for the people you&apos;d train with again, and share a story card or a poster.
                 </>,
               ],
             ]}
@@ -271,8 +270,7 @@ export default function TandemPage() {
                   After a group run the first thing you read is what happened: “You ran together for 7 km. Then Noah picked up
                   the pace for the last 3 km.” Runs, rides, swims and rows compare splits; other sports compare who was there
                   when, and how hard everyone worked. Up to twenty people compare at once: past four, your line stays dark
-                  and everyone else’s turns one faint grey, and the table keeps your column while the others page across.{' '}
-                  <Demo id="ran-together">Try it</Demo>.
+                  and everyone else’s turns one faint grey, and the table keeps your column while the others page across.
                 </>,
               ],
               [

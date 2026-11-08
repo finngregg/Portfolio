@@ -5,9 +5,7 @@ import { DotLogo } from '@/components/tandem/dot-logo'
 import { DotLoader, DotPulse } from '@/components/tandem/dots'
 import { HighFive } from '@/components/tandem/high-five'
 import { MapPins } from '@/components/tandem/map-pins'
-import { RanTogether } from '@/components/tandem/ran-together'
 import { SegmentedDemo } from '@/components/tandem/segmented-demo'
-import { PullDots, UnreadBell, VouchPill } from '@/components/tandem/small-pieces'
 import { StatusDot } from '@/components/tandem/status-dot'
 
 export const metadata: Metadata = {
@@ -75,14 +73,6 @@ const pieces: Piece[] = [
     demo: <SegmentedDemo />,
   },
   {
-    id: 'pull-to-refresh',
-    title: 'Pull to Refresh',
-    why: 'Lists refresh when you pull them down. Instead of the system spinner, the logo’s dots arrive one at a time as you pull.',
-    detail:
-      'Each dot fades and grows in over its own stretch of the pull, so the three fill up in order and you can see how far is far enough. Let go past the line and they turn into the pulse while it loads.',
-    demo: <PullDots />,
-  },
-  {
     id: 'high-five',
     title: 'High Five',
     why: 'Under a finished session, a high five says well done without needing words. The hand gives one; the count shows who.',
@@ -91,36 +81,12 @@ const pieces: Piece[] = [
     demo: <HighFive />,
   },
   {
-    id: 'vouch',
-    title: 'Vouch',
-    why: 'After a session, you can vouch for anyone you’d train with again. It replaced rating people, because people noticed which rating they didn’t get.',
-    detail:
-      'One vouch per person, however many sessions you share. Tapping it again takes it back quietly: nobody is told, and the count on their profile simply goes down.',
-    demo: <VouchPill />,
-  },
-  {
-    id: 'unread',
-    title: 'Unread Count',
-    why: 'New notifications show as a number on the bell, never a dot, so you know whether it’s one thing or many.',
-    detail:
-      'Past nine it reads 9+, so the badge never widens enough to cover the bell. Opening it marks everything read at once, without waiting for the server, so the number is gone before the list appears.',
-    demo: <UnreadBell />,
-  },
-  {
     id: 'map-pins',
     title: 'Map Pins',
-    why: 'Each pin on the Discover map says when a session starts, how far it goes and whether it suits your pace, before you tap anything. Every state a pin can be in is set out here: tap one to select it.',
+    why: 'Each pin on the Discover map says when a session starts, how far it goes and whether it suits your pace, before you tap anything. Tap one to select it.',
     detail:
-      'Selecting a pin swaps its colours and shows a ring that was there all along, clear. Its size never changes, because Apple Maps fixes a marker’s size the first time it is drawn, and a pin that grows when selected jumps.',
+      'Selecting a pin swaps its colours instead of making it bigger, because Apple Maps fixes a marker’s size the first time it is drawn.',
     demo: <MapPins />,
-  },
-  {
-    id: 'ran-together',
-    title: 'Ran Together',
-    why: 'After a group run, Tandem puts everyone’s workouts side by side and says what happened in plain words: how long you ran together, and who picked up the pace when.',
-    detail:
-      'Two people count as together on a kilometre when their paces are within ten seconds of each other. The headline is the longest stretch together, then what came after. Rides use speed, swims every hundred metres.',
-    demo: <RanTogether />,
   },
 ]
 

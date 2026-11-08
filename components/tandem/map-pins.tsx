@@ -4,9 +4,8 @@ import { useState } from 'react'
 
 // Tandem's Discover map pins, ported from SessionPin and ClubPin in the app's
 // DiscoverMap.tsx, set out as a specimen rather than on a map (2026-11-08: the
-// interactive map read as messy). Every state a pin can be in, side by side: solid
-// = at your pace, outline = not, green = today, faded = full, a count for a stack, a
-// square for a club, ↻ for every week, an area for an ask-to-join spot. Tap one to select it: the
+// interactive map read as messy; then four states, to keep it short): solid = at
+// your pace, outline = not, green = today, a square for a club. Tap one to select it: the
 // colours swap and a ring appears, but the box never changes size, because MapKit
 // anchors a marker by its first measured size and a growing pin jumps.
 
@@ -29,11 +28,7 @@ const pins: Pin[] = [
   { id: 'pace', label: 'At your pace', initial: 'T', when: 'SAT 07:00', km: '21km', pace: true },
   { id: 'other', label: 'Another pace', initial: 'J', when: 'SUN 06:30', km: '16km' },
   { id: 'today', label: 'Today', initial: 'A', when: '18:30', km: '10km', pace: true, today: true },
-  { id: 'full', label: 'Full', initial: 'O', when: '19:00', km: '8km', full: true },
-  { id: 'stack', label: 'Same spot', initial: 'K', when: 'WED 19:00', km: '6km', pace: true, stack: 2 },
   { id: 'club', label: 'A club', initial: 'SP', when: 'TUE 06:00', km: '8km', club: true },
-  { id: 'weekly', label: 'Every week', initial: 'B', when: 'THU 06:00', km: '12km', pace: true, weekly: true },
-  { id: 'area', label: 'Ask to join', initial: 'M', when: 'FRI 17:30', km: '14km', area: true },
 ]
 
 function Runner() {
@@ -75,7 +70,7 @@ function PinFace({ p, selected }: { p: Pin; selected: boolean }) {
 export function MapPins() {
   const [selected, setSelected] = useState<string | null>('today')
   return (
-    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
       {pins.map((p) => (
         <div key={p.id} className="flex flex-col items-center gap-2.5">
           <button
@@ -83,7 +78,7 @@ export function MapPins() {
             onClick={() => setSelected(selected === p.id ? null : p.id)}
             aria-pressed={selected === p.id}
             aria-label={`${p.label}: ${p.when}${p.km ? `, ${p.km}` : ''}`}
-            className="pressable relative flex h-[96px] items-center justify-center"
+            className="pressable relative flex h-[48px] items-center justify-center"
           >
             {/* Ask to join: the meeting point is shifted, so the map shows an area, not a spot */}
             {p.area ? (
