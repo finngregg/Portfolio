@@ -24,7 +24,7 @@ const screens: [string, string][] = [
   ['4-profile', 'Know who you’re meeting.'],
   ['5-host', 'Host a session in a minute.'],
   ['6-clubs', 'Run your club and watch it grow.'],
-  ['7-on-the-day', 'Never forget a session again.'],
+  ['7-calendar', 'See your month at a glance.'],
   ['8-join-for-part', 'Join for the part that suits you.'],
   ['9-stats', 'See your stats, then vouch for who came.'],
   ['10-share', 'Share it to your story.'],
@@ -184,7 +184,7 @@ export default function TandemPage() {
                 <>
                   Your workouts come in from Apple Health by themselves, or only when you add them, and sit with the session
                   they belong to. Afterwards the session tells the story of how it went: how long you ran together, who picked
-                  up the pace, the climb, how hard everyone worked. Add a note to your workout, comment on each other&apos;s,
+                  up the pace, the climb, how hard everyone worked. Add a note to your workout, comment on the session,
                   vouch for the people you&apos;d train with again, and share a story card or a poster.
                 </>,
               ],
@@ -193,7 +193,7 @@ export default function TandemPage() {
           <Phones
             phones={[
               { src: '/tandem/phone/5.jpg', alt: 'Hosting a session: the last step, with the plan to check before it goes out', caption: 'Host a session' },
-              { src: '/tandem/phone/7.jpg', alt: 'The Lock Screen an hour before: a countdown, who is going, Running late and Directions', caption: 'On the day' },
+              { src: '/tandem/phone/7.jpg', alt: 'Your month: each day’s sport on a calendar, sessions still to come ringed, and how many days you trained', caption: 'Your month' },
             ]}
           />
         </Section>
