@@ -2,7 +2,6 @@ import type { CSSProperties, ReactNode } from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Phones } from '@/components/tandem/phones'
 import { StatusDot } from '@/components/tandem/status-dot'
 
 export const metadata: Metadata = {
@@ -13,13 +12,14 @@ export const metadata: Metadata = {
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
-// Screens from the simulator build (2026-11-19), in the order a new person meets them
+// Screens from a simulator build (2026-11-19), in the order a new person meets them. The path
+// itself needs a signed-in account, so it isn't shown yet
 const screens: [string, string][] = [
-  ['1-path', 'The path: lessons as commits on a unit’s branch.'],
-  ['2-lesson', 'Spot the bug, then see why.'],
-  ['3-answer', 'Every answer explained in a sentence or two.'],
-  ['4-courses', 'Choose your stack.'],
-  ['5-kodie', 'Kodie, dressed in what you’ve earned.'],
+  ['1-welcome', 'Five minutes a day.'],
+  ['2-courses', 'Choose your stack.'],
+  ['3-output', 'Predict the output.'],
+  ['4-answer', 'Every answer explained.'],
+  ['5-kodie', 'Dress Kodie in what you earn.'],
 ]
 
 const facts: { label: string; value: ReactNode }[] = [
@@ -90,7 +90,7 @@ export default function KodiePage() {
       <div className="enter -mx-4 mb-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6" style={step(5)}>
         {screens.map(([file, caption]) => (
           <figure key={file} className="w-[200px] shrink-0 snap-start sm:w-[220px]">
-            <Image src={`/kodie/screens/${file}.jpg`} alt={`Kodie: ${caption}`} width={600} height={1303} className="w-full rounded-xl border border-border" />
+            <Image src={`/kodie/screens/${file}.jpg`} alt={`Kodie: ${caption}`} width={600} height={1304} className="w-full rounded-xl border border-border" />
             <figcaption className="mt-3 text-xs leading-relaxed text-muted">{caption}</figcaption>
           </figure>
         ))}
