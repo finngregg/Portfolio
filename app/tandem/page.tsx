@@ -72,14 +72,6 @@ function Points({ items }: { items: [lead: string, body: ReactNode][] }) {
   )
 }
 
-function Demo({ id, children }: { id: string; children: ReactNode }) {
-  return (
-    <Link href={`/components#${id}`} className="hover-underline text-foreground">
-      {children}
-    </Link>
-  )
-}
-
 export default function TandemPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 sm:px-6">
@@ -141,8 +133,8 @@ export default function TandemPage() {
           </p>
           <p>
             That&apos;s what Tandem is for: real connections, in person. Finding your people, the ones who do what you do
-            and do it like you do. Keeping clubs and their members in touch through the week. Giving clubs, Pilates
-            studios and everyone else who runs something the exposure to be found.
+            and do it like you do. Keeping clubs and their members in touch through the week. Giving clubs and everyone
+            else who runs something the exposure to be found.
           </p>
           <p>
             It started with long runs: an app for finding someone to do your longest sessions with. Plenty of people want
@@ -157,10 +149,9 @@ export default function TandemPage() {
               [
                 'Know what’s on.',
                 <>
-                  Everything happening near you is on one map: club runs, rides, padel games, studio classes, and who&apos;s
+                  Everything happening near you is on one map: club runs, rides, padel games and more, and who&apos;s
                   going to each. Every session says when it starts, how far it goes and whether it&apos;s at your pace, so
-                  starting out is less daunting: you can see where you&apos;d fit in before you go.{' '}
-                  <Demo id="map-pins">See the pins</Demo>.
+                  starting out is less daunting: you can see where you&apos;d fit in before you go.
                 </>,
               ],
               [
@@ -173,17 +164,17 @@ export default function TandemPage() {
               ],
               [
                 'Be found.',
-                'Anyone who runs something, from a run club to a Pilates studio, can put it where people nearby are already looking. A studio links to its own booking site; when you come back from booking, Tandem asks whether you got a place.',
+                'Anyone who runs something, from a run club to a weekly padel game, can put it where people nearby are already looking, and see who keeps coming back.',
               ],
               [
                 'Make it happen.',
-                'Hosting takes a few steps, once or every week, and the sessions you repeat are saved as favourites: choose one and a time, and it’s set up as before, with the same friends invited. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
+                'Hosting takes a few steps, once or every week, and “Train again” sets up last week’s session with the same people. Sessions you join go into your calendar, and an hour before the start a Live Activity on the Lock Screen and Apple Watch shows who’s going and how to get there.',
               ],
               [
                 'Remember it together.',
                 <>
-                  Your workouts come in from Apple Health by themselves, or only when you add them, and sit with the session
-                  they belong to. Afterwards the session tells the story of how it went: how long you ran together, who picked
+                  Your workouts come in by themselves, from Garmin or Apple Health, or only when you add them, and sit with the
+                  session they belong to. Afterwards the session tells the story of how it went: how long you ran together, who picked
                   up the pace, the climb, how hard everyone worked. Add a note to your workout, comment on the session,
                   vouch for the people you&apos;d train with again, and share a story card or a poster.
                 </>,
@@ -223,8 +214,8 @@ export default function TandemPage() {
           <Points
             items={[
               [
-                'Proof, not check-ins.',
-                'Attendance comes from the workout people add from Apple Health, so show-up rates are real and a group can’t invent a run.',
+                'No check-ins.',
+                'Someone is marked as there by the workout they add, or by the host or anyone who came. Only the host can mark someone absent, so show-up rates come from the people who were there.',
               ],
               ['One vouch.', '“I’d train with them again” replaced a set of tags, which made people notice the ones left out.'],
               [
@@ -241,7 +232,7 @@ export default function TandemPage() {
               ],
               [
                 'Your workouts, your call.',
-                'You choose who sees your numbers and whether workouts come in by themselves. A club can keep everyone’s workouts on its sessions to the person who recorded them, which a beginners’ group asked for.',
+                'You choose who sees your numbers and whether workouts come in by themselves.',
               ],
               ['Real faces and names.', 'A profile photo and full name are required. Gender and age are asked for, and stay private unless you choose to show them.'],
               [
@@ -281,12 +272,16 @@ export default function TandemPage() {
                 'Faces open people.',
                 <>
                   A session of 40 or a club of 300 shows two rows of faces and “See all”. Tapping a face anywhere opens that
-                  person, and the high five count opens who gave one. <Demo id="high-five">Try the high five</Demo>.
+                  person, and a like count opens who liked it.
                 </>,
               ],
               [
                 'One visual language.',
-                'Greys only, Geist and Geist Mono, hairline rows, and a single colour: a green dot for anything happening now. Loading is always dots, never a spinner.',
+                'Greys only, Geist and Geist Mono, white cards on a soft grey page with hairline rows inside, and a single colour: a green dot for anything happening now. Loading is always dots, never a spinner.',
+              ],
+              [
+                'A redesign behind one switch.',
+                'The current look, white cards on a soft grey page, see-through headers and rounder charts, ran for a few named testers while every screen moved over, each bigger change mocked first and chosen from side by side. It reaches everyone at once, with one App Store build and new screenshots, never half-finished.',
               ],
             ]}
           />
@@ -309,12 +304,12 @@ export default function TandemPage() {
           </p>
         </Section>
 
-        <Link href="/components" className="group mb-24 flex items-center justify-between gap-6 border-y border-border py-6">
+        <Link href="/kodie" className="group mb-24 flex items-center justify-between gap-6 border-y border-border py-6">
           <span>
             <span className="block font-mono text-[10px] uppercase tracking-[0.15em] text-muted">Next</span>
-            <span className="hover-underline mt-2 inline-block text-sm font-medium text-foreground">Components</span>
+            <span className="hover-underline mt-2 inline-block text-sm font-medium text-foreground">Kodie</span>
             <span className="mt-1 block text-sm leading-relaxed text-muted transition-colors duration-200 group-hover:text-foreground">
-              Pieces of Tandem&apos;s interface, rebuilt for the web.
+              Five minutes a day to keep an engineer&apos;s fundamentals sharp.
             </span>
           </span>
           <span

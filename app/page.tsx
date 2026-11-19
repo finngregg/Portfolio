@@ -73,7 +73,11 @@ export default function Home() {
             >
               now on the App Store
             </a>
-            .
+            . I&apos;m also building{' '}
+            <Link href="/kodie" className="hover-underline text-foreground">
+              Kodie
+            </Link>
+            , a daily practice app for software engineers.
           </p>
         </div>
       </section>
