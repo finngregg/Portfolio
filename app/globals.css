@@ -213,3 +213,22 @@ html {
     opacity: 0;
   }
 }
+
+/* Kodie's mascot (2026-11-19): its purple per theme, and the slow breath it has in the app */
+:root {
+  --kodie-purple: #8b5cf6;
+}
+.dark {
+  --kodie-purple: #a78bfa;
+}
+@keyframes kodie-breathe {
+  0%, 100% { transform: scaleY(1) translateY(0); }
+  50% { transform: scaleY(1.035) translateY(-1px); }
+}
+.kodie-breathe {
+  transform-origin: 50% 100%;
+  animation: kodie-breathe 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kodie-breathe { animation: none; }
+}

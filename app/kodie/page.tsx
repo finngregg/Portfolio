@@ -1,8 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { StatusDot } from '@/components/tandem/status-dot'
+import { KodieMascot } from '@/components/kodie/mascot'
+import { GitPath, HabitRow, QuestionCard } from '@/components/kodie/visuals'
+import { ScreenRow } from '@/components/tandem/visuals'
 
 export const metadata: Metadata = {
   title: 'Kodie',
@@ -12,14 +14,12 @@ export const metadata: Metadata = {
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
-// Screens from a simulator build (2026-11-19), in the order a new person meets them. The path
-// itself needs a signed-in account, so it isn't shown yet
-const screens: [string, string][] = [
-  ['1-welcome', 'Five minutes a day.'],
-  ['2-courses', 'Choose your stack.'],
-  ['3-output', 'Predict the output.'],
-  ['4-answer', 'Every answer explained.'],
-  ['5-kodie', 'Dress Kodie in what you earn.'],
+// Real screens from a simulator build (2026-11-19) close the page; the visuals above are drawn
+// from the app's own colours, code and pixel art (Gregg chose built visuals over screenshots)
+const screens = [
+  { src: '/kodie/screens/3-output.jpg', alt: 'A question: predict what two timers and a log print', caption: 'A question' },
+  { src: '/kodie/screens/4-answer.jpg', alt: 'The answer panel: git gud, with a one-line explanation', caption: 'Its answer' },
+  { src: '/kodie/screens/5-kodie.jpg', alt: 'Your Kodie: the mascot in a propeller cap, with hats to earn', caption: 'What you earn' },
 ]
 
 const facts: { label: string; value: ReactNode }[] = [
@@ -63,8 +63,8 @@ export default function KodiePage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 sm:px-6">
       <header className="pt-20 pb-12">
-        <div className="enter flex justify-center">
-          <Image src="/kodie/icon.png" alt="Kodie, a pixel face inside curly braces" width={96} height={96} className="rounded-[22px]" priority />
+        <div className="enter flex justify-center text-foreground">
+          <KodieMascot pixel={8} />
         </div>
         <h1 className="enter mt-6 text-2xl font-semibold tracking-tight text-foreground" style={step(2)}>
           Kodie
@@ -85,16 +85,6 @@ export default function KodiePage() {
           ))}
         </dl>
       </header>
-
-      {/* Screens from the current build, swiped sideways */}
-      <div className="enter -mx-4 mb-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6" style={step(5)}>
-        {screens.map(([file, caption]) => (
-          <figure key={file} className="w-[200px] shrink-0 snap-start sm:w-[220px]">
-            <Image src={`/kodie/screens/${file}.jpg`} alt={`Kodie: ${caption}`} width={600} height={1304} className="w-full rounded-xl border border-border" />
-            <figcaption className="mt-3 text-xs leading-relaxed text-muted">{caption}</figcaption>
-          </figure>
-        ))}
-      </div>
 
       <div className="enter" style={step(5)}>
         <Section title="Why Kodie">
@@ -138,6 +128,10 @@ export default function KodiePage() {
               ],
             ]}
           />
+          <div className="mt-10 space-y-3">
+            <GitPath />
+            <QuestionCard />
+          </div>
         </Section>
 
         <Section title="Correctness first">
@@ -173,6 +167,13 @@ export default function KodiePage() {
               ],
             ]}
           />
+          <div className="mt-10">
+            <HabitRow />
+          </div>
+        </Section>
+
+        <Section title="In the app">
+          <ScreenRow screens={screens} dark />
         </Section>
 
         <Section title="Where it stands">

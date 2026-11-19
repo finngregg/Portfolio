@@ -1,9 +1,8 @@
 import type { CSSProperties, ReactNode } from 'react'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { DotLogo } from '@/components/tandem/dot-logo'
-import { Phones } from '@/components/tandem/phones'
+import { GroupRan, MapScene, ScreenRow, StoryCard, TrustCard } from '@/components/tandem/visuals'
 import { StatusDot } from '@/components/tandem/status-dot'
 
 export const metadata: Metadata = {
@@ -16,18 +15,12 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 const APP_STORE = 'https://apps.apple.com/us/app/tandem-train-together/id6771069787'
 
-// The App Store screenshots, the map first
-const screens: [string, string][] = [
-  ['1-discover', 'Find what’s on around you.'],
-  ['2-this-week', 'Plan your week and join your friends.'],
-  ['3-people', 'Find people who train like you.'],
-  ['4-profile', 'Know who you’re meeting.'],
-  ['5-host', 'Host a session in a minute.'],
-  ['6-clubs', 'Run your club and watch it grow.'],
-  ['7-calendar', 'See your month at a glance.'],
-  ['8-join-for-part', 'Join for the part that suits you.'],
-  ['9-stats', 'See your stats, then vouch for who came.'],
-  ['10-share', 'Share it to your story.'],
+// Real screens close the page; the visuals above are drawn from the app's new look (Gregg chose
+// built visuals over screenshots, 2026-11-19)
+const screens = [
+  { src: '/tandem/phone/1.jpg', alt: 'The Discover map: sessions across Cape Town as pins, today’s marked green', caption: 'What’s on' },
+  { src: '/tandem/phone/2.jpg', alt: 'Home: your next session and your week', caption: 'Your week' },
+  { src: '/tandem/phone/9.jpg', alt: 'A finished run: a photo from the morning, then how long the group ran together', caption: 'Afterwards' },
 ]
 
 const facts: { label: string; value: ReactNode }[] = [
@@ -105,20 +98,6 @@ export default function TandemPage() {
         </dl>
       </header>
 
-      {/* The App Store screenshots, swiped sideways */}
-      <div className="enter -mx-4 mb-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6" style={step(5)}>
-        {screens.map(([file, caption]) => (
-          <Image
-            key={file}
-            src={`/tandem/screens/${file}.jpg`}
-            alt={`Tandem: ${caption}`}
-            width={660}
-            height={1434}
-            className="w-[200px] shrink-0 snap-start rounded-xl border border-border sm:w-[220px]"
-          />
-        ))}
-      </div>
-
       <div className="enter" style={step(5)}>
         <Section title="Why Tandem">
           <p>
@@ -181,12 +160,9 @@ export default function TandemPage() {
               ],
             ]}
           />
-          <Phones
-            phones={[
-              { src: '/tandem/phone/5.jpg', alt: 'Hosting a session: the last step, with the plan to check before it goes out', caption: 'Host a session' },
-              { src: '/tandem/phone/7.jpg', alt: 'Your month: each day’s sport on a calendar, sessions still to come ringed, and how many days you trained', caption: 'Your month' },
-            ]}
-          />
+          <div className="mt-10">
+            <MapScene />
+          </div>
         </Section>
 
         <Section title="What it isn't trying to be">
@@ -241,6 +217,9 @@ export default function TandemPage() {
               ],
             ]}
           />
+          <div className="mt-10">
+            <TrustCard />
+          </div>
         </Section>
 
         <Section title="Craft">
@@ -285,12 +264,14 @@ export default function TandemPage() {
               ],
             ]}
           />
-          <Phones
-            phones={[
-              { src: '/tandem/phone/9.jpg', alt: 'After a run: “You stayed together for the whole 10 km”, everyone’s splits on one chart, then the group’s pace', caption: 'How the group ran' },
-              { src: '/tandem/phone/10.jpg', alt: 'Sharing a session: a story card, sticker or poster, in black or white', caption: 'Share it' },
-            ]}
-          />
+          <div className="mt-10 grid gap-3 sm:grid-cols-[1.5fr_1fr]">
+            <GroupRan />
+            <StoryCard />
+          </div>
+        </Section>
+
+        <Section title="In the app">
+          <ScreenRow screens={screens} />
         </Section>
 
         <Section title="Stack">
