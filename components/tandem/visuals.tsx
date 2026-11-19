@@ -6,66 +6,39 @@ const T = { ground: '#F4F4F3', card: '#FFFFFF', ink: '#070707', muted: '#555555'
 
 const mono = 'font-mono text-[10px] tracking-[0.15em]'
 
-function Pin({ x, y, time, detail, count, live, selected }: { x: string; y: string; time: string; detail?: string; count?: number; live?: boolean; selected?: boolean }) {
-  return (
-    <span
-      className="absolute flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 font-mono text-[11px] sm:text-[12px]"
-      style={{ left: x, top: y, background: selected ? T.ink : T.card, color: selected ? '#FFFFFF' : T.ink, boxShadow: '0 6px 18px rgba(0,0,0,0.10)' }}
-    >
-      {live ? <span className="h-2 w-2 rounded-full" style={{ background: T.live }} /> : null}
-      <span>{time}</span>
-      {detail ? <span style={{ color: selected ? '#A6A6A6' : T.faint }}>{detail}</span> : null}
-      {count ? (
-        <span className="rounded-full px-1.5 text-[10px]" style={{ background: T.ink, color: '#FFFFFF' }}>
-          {count}
-        </span>
-      ) : null}
-    </span>
-  )
-}
-
-/** The Discover map: pins that say when and how far, green for today, stacked with a count */
+/** The Discover map, a real capture cropped to the city: every pin a real session, today's in green.
+ * Only your location moves, pulsing as it does in the app (2026-11-19: drawn pins looked generic) */
 export function MapScene() {
   return (
-    <div
-      role="img"
-      aria-label="A map with session pins: Saturday 07:00 21 km with two stacked, today 17:00 10 km selected, today 19:00 five-a-side, Sunday 06:00 45 km"
-      className="relative h-[260px] overflow-hidden rounded-3xl sm:h-[300px]"
-      style={{ background: '#ECEEE9' }}
-    >
-      <span className="absolute left-0 top-0 h-full w-[22%]" style={{ background: '#CFE4F2' }} />
-      <span className="absolute left-[-5%] top-[40%] h-2.5 w-[110%] -rotate-[9deg] bg-white" />
-      <span className="absolute left-[38%] top-[-15%] h-[130%] w-2 rotate-[14deg] bg-white" />
-      <span className="absolute left-[68%] top-[-15%] h-[130%] w-1.5 -rotate-[22deg]" style={{ background: '#F7F8F5' }} />
-      <Pin x="30%" y="14%" time="SAT 07:00" detail="21 km" count={2} />
-      <Pin x="56%" y="34%" time="17:00" detail="10 km" live selected />
-      <Pin x="26%" y="58%" time="19:00" detail="5-a-side" live />
-      <Pin x="58%" y="74%" time="SUN 06:00" detail="45 km" />
-      <span className="absolute left-[48%] top-[50%] h-4 w-4 rounded-full border-[3px] border-white" style={{ background: '#2F7BF6', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }} />
+    <div className="relative overflow-hidden rounded-3xl" style={{ background: '#ECEEE9' }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/tandem/map.jpg"
+        alt="Tandem's Discover map of Cape Town: session pins say when and how far, today's marked green, sessions at one spot stacked with a count"
+        loading="lazy"
+        className="block w-full"
+        width={1320}
+        height={1200}
+      />
+      <span aria-hidden="true" className="map-ping absolute h-[3.2%] w-[3.2%] -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ left: '49.8%', top: '72.7%', background: '#2F7BF6' }} />
     </div>
   )
 }
 
-/** The top of a profile: who they are and the three things that make meeting them easier */
+/** The top of a real profile: the chips (show-up, vouches, pace, goal), then the numbers behind them.
+ * A crop of the app, not a drawing, so it shows trust exactly as Tandem does */
 export function TrustCard() {
   return (
-    <div className="flex justify-center rounded-3xl p-5 sm:p-7" style={{ background: T.ground }}>
-      <div className="flex w-full max-w-[440px] flex-col items-center gap-2.5 rounded-[22px] p-6" style={{ background: T.card, color: T.ink }}>
-        <span className="flex h-[72px] w-[72px] items-center justify-center rounded-full text-[22px] font-medium" style={{ background: '#E4E4E1', color: T.muted }}>
-          AF
-        </span>
-        <div className="text-[22px] font-semibold tracking-[-0.02em]">Ava Fischer</div>
-        <div className="flex flex-wrap justify-center gap-2">
-          {['Shows up 100%', 'Vouched for by 7', 'Runs 5:18/km'].map((c) => (
-            <span key={c} className="rounded-full px-3 py-1.5 text-[13px] font-medium" style={{ background: T.chip }}>
-              {c}
-            </span>
-          ))}
-        </div>
-        <div className="text-center text-[13px]" style={{ color: T.muted }}>
-          “I&apos;d train with them again”, from people who have.
-        </div>
-      </div>
+    <div className="flex justify-center rounded-3xl px-4 py-6 sm:py-8" style={{ background: T.ground }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/tandem/profile.jpg"
+        alt="A Tandem profile: Ava Fischer, with Shows up 100%, Vouched for by 7, Runs 5:18/km and Training for Full Marathon, then 5 sessions, 100% show-up, 7 partners and 3 weeks in a row"
+        loading="lazy"
+        className="block w-full max-w-[400px]"
+        width={1320}
+        height={2045}
+      />
     </div>
   )
 }
