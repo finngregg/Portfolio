@@ -17,7 +17,7 @@ const APP_STORE = 'https://apps.apple.com/us/app/tandem-train-together/id6771069
 
 // Screens shown as on trainintandem.com (Gregg, 2026-11-20): three phones at the top, then two
 // staggered on a soft panel beside the sections they illustrate
-const app = (n: number, alt: string) => ({ src: `/tandem/app2/${n}.jpg`, alt })
+const app = (n: number, alt: string) => ({ src: `/tandem/app3/${n}.jpg`, alt })
 
 export default function TandemPage() {
   return (
@@ -64,7 +64,7 @@ export default function TandemPage() {
 
       <div className="enter mb-4" style={step(5)}>
         <Image
-          src="/tandem/hero2.png"
+          src="/tandem/hero3.png"
           alt="Tandem on iPhone: what’s on around you on a map, clubs near you, and a story card to share after a session"
           width={2160}
           height={1640}
