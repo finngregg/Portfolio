@@ -54,14 +54,15 @@ export function NextProject({ href, name, line }: { href: string; name: string; 
   )
 }
 
-/** Real screens closing a page: three phones, staggered, on a soft panel */
+/** Real screens closing a page: three whole phones on a soft panel, padded the same above and below
+ * (2026-11-20: staggered in a fixed height, the third was cut off at the bottom) */
 export function ScreenRow({ screens, dark }: { screens: { src: string; alt: string; caption: string }[]; dark?: boolean }) {
   return (
     <div>
-      <div className="grid h-[300px] grid-cols-3 items-start gap-3 overflow-hidden rounded-3xl px-4 pt-7 sm:h-[460px] sm:gap-4 sm:px-7 sm:pt-10" style={{ background: dark ? '#0C0F15' : '#F4F4F3' }}>
-        {screens.map((s, n) => (
+      <div className="grid grid-cols-3 items-start gap-3 rounded-3xl p-4 sm:gap-4 sm:p-7" style={{ background: dark ? '#0C0F15' : '#F4F4F3' }}>
+        {screens.map((s) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="w-full rounded-[18px] border sm:rounded-[22px]" style={{ marginTop: n * 22, borderColor: dark ? '#262E3B' : '#E3E3E1' }} />
+          <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="w-full rounded-[14px] border sm:rounded-[20px]" style={{ borderColor: dark ? '#262E3B' : '#E3E3E1' }} />
         ))}
       </div>
       <div className="mt-3 grid grid-cols-3 gap-3 px-4 sm:gap-4 sm:px-7">
