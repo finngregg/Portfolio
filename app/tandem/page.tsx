@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { DotLogo } from '@/components/tandem/dot-logo'
 import { StatusDot } from '@/components/tandem/status-dot'
-import { Bullets, Facts, NextProject, Section } from '@/components/project'
+import { Bullets, Facts, NextProject, Section, Stage } from '@/components/project'
 
 export const metadata: Metadata = {
   title: 'Tandem',
@@ -15,20 +15,9 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 const APP_STORE = 'https://apps.apple.com/us/app/tandem-train-together/id6771069787'
 
-// The App Store screenshots, the map first (Gregg, 2026-11-20: the app's own screenshots over
-// drawn visuals); every section below is bullets
-const screens: [string, string][] = [
-  ['1-discover', 'Find what’s on around you.'],
-  ['2-this-week', 'Plan your week and join your friends.'],
-  ['3-people', 'Find people who train like you.'],
-  ['4-profile', 'Know who you’re meeting.'],
-  ['5-host', 'Host a session in a minute.'],
-  ['6-clubs', 'Run your club and watch it grow.'],
-  ['7-calendar', 'See your month at a glance.'],
-  ['8-join-for-part', 'Join for the part that suits you.'],
-  ['9-stats', 'See your stats, then vouch for who came.'],
-  ['10-share', 'Share it to your story.'],
-]
+// Screens shown as on trainintandem.com (Gregg, 2026-11-20): three phones at the top, then two
+// staggered on a soft panel beside the sections they illustrate
+const app = (n: number, alt: string) => ({ src: `/tandem/app/${n}.jpg`, alt })
 
 export default function TandemPage() {
   return (
@@ -73,18 +62,15 @@ export default function TandemPage() {
         </div>
       </header>
 
-      {/* The App Store screenshots, swiped sideways */}
-      <div className="enter -mx-4 mb-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6" style={step(5)}>
-        {screens.map(([file, caption]) => (
-          <Image
-            key={file}
-            src={`/tandem/store/${file}.jpg`}
-            alt={`Tandem: ${caption}`}
-            width={660}
-            height={1434}
-            className="w-[200px] shrink-0 snap-start rounded-xl border border-border sm:w-[220px]"
-          />
-        ))}
+      <div className="enter mb-4" style={step(5)}>
+        <Image
+          src="/tandem/hero.png"
+          alt="Tandem on iPhone: what’s on around you on a map, clubs near you, and a story card to share after a session"
+          width={2160}
+          height={1640}
+          priority
+          className="w-full rounded-3xl border border-border"
+        />
       </div>
 
       <div className="enter" style={step(5)}>
@@ -107,6 +93,9 @@ export default function TandemPage() {
               ['Afterwards.', 'Workouts come in from Apple Health or Garmin; the session tells you how the group went.'],
             ]}
           />
+          <div className="mt-10">
+            <Stage front={app(1, 'The Discover map: sessions across Cape Town, today’s marked green')} back={app(8, 'A 28 km run, with the stretch each person is joining for')} />
+          </div>
         </Section>
 
         <Section title="What it isn't">
@@ -130,6 +119,9 @@ export default function TandemPage() {
               ['Protected meeting points.', 'Ask-to-join sessions show an area until the host approves you.'],
             ]}
           />
+          <div className="mt-10">
+            <Stage flip front={app(4, 'A profile: show-up rate, vouches and usual pace')} back={app(3, 'Find people: friends from your contacts, then people near you')} />
+          </div>
         </Section>
 
         <Section title="Craft">
@@ -142,6 +134,9 @@ export default function TandemPage() {
               ['One visual language.', 'Greys, Geist, one green dot for anything happening now, dots for loading.'],
             ]}
           />
+          <div className="mt-10">
+            <Stage front={app(9, 'After a run: a photo from the morning, then how long the group ran together')} back={app(10, 'Sharing a session: a story card, sticker or poster')} />
+          </div>
         </Section>
 
         <Section title="Stack">

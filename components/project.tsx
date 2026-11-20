@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 // The pieces both project pages share (Tandem, Kodie), so they read the same way: a section with a
@@ -54,24 +55,17 @@ export function NextProject({ href, name, line }: { href: string; name: string; 
   )
 }
 
-/** Real screens closing a page: three whole phones on a soft panel, padded the same above and below
- * (2026-11-20: staggered in a fixed height, the third was cut off at the bottom) */
-export function ScreenRow({ screens, dark }: { screens: { src: string; alt: string; caption: string }[]; dark?: boolean }) {
+/**
+ * Two of an app's screens side by side on a soft panel at staggered heights, as on trainintandem.com
+ * (Gregg, 2026-11-20: the website shows its screens better); `flip` swaps which side leads
+ */
+export function Stage({ front, back, flip, dark }: { front: { src: string; alt: string }; back: { src: string; alt: string }; flip?: boolean; dark?: boolean }) {
+  const phone = 'absolute w-[40%] rounded-[22px] border shadow-[0_24px_50px_-26px_rgba(0,0,0,0.3)]'
+  const edge = dark ? '#262E3B' : undefined
   return (
-    <div>
-      <div className="grid grid-cols-3 items-start gap-3 rounded-3xl p-4 sm:gap-4 sm:p-7" style={{ background: dark ? '#0C0F15' : '#F4F4F3' }}>
-        {screens.map((s) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={s.src} src={s.src} alt={s.alt} loading="lazy" className="w-full rounded-[14px] border sm:rounded-[20px]" style={{ borderColor: dark ? '#262E3B' : '#E3E3E1' }} />
-        ))}
-      </div>
-      <div className="mt-3 grid grid-cols-3 gap-3 px-4 sm:gap-4 sm:px-7">
-        {screens.map((s) => (
-          <span key={s.caption} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-            {s.caption}
-          </span>
-        ))}
-      </div>
+    <div className={`relative h-[360px] overflow-hidden rounded-3xl border border-border sm:h-[480px] ${dark ? '' : 'bg-muted-bg'}`} style={dark ? { background: '#0C0F15', borderColor: '#0C0F15' } : undefined}>
+      <Image src={back.src} alt={back.alt} width={600} height={1303} className={`${phone} top-[76px] ${flip ? 'right-[7%]' : 'left-[7%]'}`} style={{ borderColor: edge }} />
+      <Image src={front.src} alt={front.alt} width={600} height={1303} className={`${phone} top-[32px] ${flip ? 'left-[7%]' : 'right-[7%]'}`} style={{ borderColor: edge }} />
     </div>
   )
 }

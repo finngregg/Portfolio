@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { StatusDot } from '@/components/tandem/status-dot'
 import { KodieMascot } from '@/components/kodie/mascot'
 import { GitPath, HabitRow, QuestionCard } from '@/components/kodie/visuals'
-import { Bullets, Facts, NextProject, ScreenRow, Section } from '@/components/project'
+import { Bullets, Facts, NextProject, Section, Stage } from '@/components/project'
 
 export const metadata: Metadata = {
   title: 'Kodie',
@@ -13,13 +13,8 @@ export const metadata: Metadata = {
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
-// Real screens from a simulator build (2026-11-19) close the page; the visuals above are drawn
-// from the app's own colours, code and pixel art. Sections are bullets, as on Tandem's page
-const screens = [
-  { src: '/kodie/screens/3-output.jpg', alt: 'A question: predict what two timers and a log print', caption: 'A question' },
-  { src: '/kodie/screens/4-answer.jpg', alt: 'The answer panel: git gud, with a one-line explanation', caption: 'Its answer' },
-  { src: '/kodie/screens/5-kodie.jpg', alt: 'Your Kodie: the mascot in a propeller cap, with hats to earn', caption: 'What you earn' },
-]
+// Visuals drawn from the app's own colours, code and pixel art; real screens from a simulator build
+// (2026-11-19) on a stage like Tandem's. Sections are bullets, as on Tandem's page
 
 export default function KodiePage() {
   return (
@@ -109,7 +104,7 @@ export default function KodiePage() {
         </Section>
 
         <Section title="In the app">
-          <ScreenRow screens={screens} dark />
+          <Stage dark front={{ src: '/kodie/screens/4-answer.jpg', alt: 'The answer panel: git gud, with a one-line explanation' }} back={{ src: '/kodie/screens/3-output.jpg', alt: 'A question: predict what two timers and a log print' }} />
         </Section>
 
         <Section title="Where it stands">
