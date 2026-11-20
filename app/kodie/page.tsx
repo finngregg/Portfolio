@@ -1,10 +1,9 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { StatusDot } from '@/components/tandem/status-dot'
 import { KodieMascot } from '@/components/kodie/mascot'
 import { GitPath, HabitRow, QuestionCard } from '@/components/kodie/visuals'
-import { ScreenRow } from '@/components/tandem/visuals'
+import { Bullets, Facts, NextProject, ScreenRow, Section } from '@/components/project'
 
 export const metadata: Metadata = {
   title: 'Kodie',
@@ -15,49 +14,12 @@ export const metadata: Metadata = {
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 // Real screens from a simulator build (2026-11-19) close the page; the visuals above are drawn
-// from the app's own colours, code and pixel art (Gregg chose built visuals over screenshots)
+// from the app's own colours, code and pixel art. Sections are bullets, as on Tandem's page
 const screens = [
   { src: '/kodie/screens/3-output.jpg', alt: 'A question: predict what two timers and a log print', caption: 'A question' },
   { src: '/kodie/screens/4-answer.jpg', alt: 'The answer panel: git gud, with a one-line explanation', caption: 'Its answer' },
   { src: '/kodie/screens/5-kodie.jpg', alt: 'Your Kodie: the mascot in a propeller cap, with hats to earn', caption: 'What you earn' },
 ]
-
-const facts: { label: string; value: ReactNode }[] = [
-  { label: 'Role', value: 'Product, design and development' },
-  { label: 'Stack', value: 'React Native, Expo, Supabase, Skia' },
-  { label: 'Started', value: 'November 2026' },
-  {
-    label: 'Status',
-    value: (
-      <span className="inline-flex items-center gap-2.5 text-foreground">
-        <StatusDot />
-        In development, testing on TestFlight
-      </span>
-    ),
-  },
-]
-
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="border-t border-border py-12">
-      <h2 className="mb-6 font-mono text-[11px] uppercase tracking-[0.15em] text-muted">{title}</h2>
-      <div className="space-y-4 text-base leading-relaxed text-muted">{children}</div>
-    </section>
-  )
-}
-
-// A bold lead-in, then the reasoning
-function Points({ items }: { items: [lead: string, body: ReactNode][] }) {
-  return (
-    <ul className="mt-6 space-y-5">
-      {items.map(([lead, body]) => (
-        <li key={lead}>
-          <span className="font-medium text-foreground">{lead}</span> {body}
-        </li>
-      ))}
-    </ul>
-  )
-}
 
 export default function KodiePage() {
   return (
@@ -74,58 +36,45 @@ export default function KodiePage() {
         </p>
         <p className="enter mt-4 max-w-md text-base leading-relaxed text-muted" style={step(3)}>
           A daily practice app for software engineers: one short lesson a day, in the languages and tools you choose, to keep
-          the fundamentals sharp. I&apos;m building it now, from product and design to the code and the questions.
+          the fundamentals sharp.
         </p>
-        <dl className="enter mt-10 border-t border-border" style={step(4)}>
-          {facts.map(({ label, value }) => (
-            <div key={label} className="grid grid-cols-[6rem_1fr] items-baseline gap-x-4 border-b border-border py-3">
-              <dt className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted">{label}</dt>
-              <dd className="text-sm text-foreground">{value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="enter mt-10" style={step(4)}>
+          <Facts
+            items={[
+              { label: 'Role', value: 'Product, design and development' },
+              { label: 'Stack', value: 'React Native, Expo, Supabase, Skia' },
+              { label: 'Started', value: 'November 2026' },
+              {
+                label: 'Status',
+                value: (
+                  <span className="inline-flex items-center gap-2.5 text-foreground">
+                    <StatusDot />
+                    In development, testing on TestFlight
+                  </span>
+                ),
+              },
+            ]}
+          />
+        </div>
       </header>
 
       <div className="enter" style={step(5)}>
         <Section title="Why Kodie">
           <p>
-            AI has changed the job. Engineers write less code by hand and review more of it, so the fundamentals fade: how
-            the event loop orders things, why an effect holds a stale value, what a binary search does when the pointers meet.
-          </p>
-          <p>
-            Interviews still test exactly those things, which means a weekend of cramming before every one. Grinding
-            problems keeps you sharp only if you do it daily, and almost nobody does. Kodie keeps you ready in five minutes
-            a day, the way a language app keeps a language alive.
-          </p>
-          <p>
-            It is also where you can learn something in the first place. Every course runs from someone who has never
-            written code to an engineer being challenged, and anyone who knows the basics can jump ahead with a short test.
+            Engineers now review more code than they write, so the fundamentals fade: the event loop, a stale closure, a
+            binary search that never ends. Interviews still test them. Kodie keeps you ready in five minutes a day, and every
+            course also starts from zero.
           </p>
         </Section>
 
         <Section title="What it does">
-          <Points
+          <Bullets
             items={[
-              [
-                'A path that reads like git.',
-                'Each lesson is a commit on a unit’s branch, and each unit ends in a boss: a pull request, harder than the lessons, that merges the unit into main. It is the history engineers already know, in place of a trail of circles.',
-              ],
-              [
-                'Questions you answer with your thumbs.',
-                'Predict the output, spot the bug, order the lines, move the pointers, step through a trace, sort logs into the event loop, review an agent’s pull request, or type the one line that matters. Nothing asks you to write a whole program on a phone.',
-              ],
-              [
-                'A habit, kept honestly.',
-                'A streak drawn as a contribution grid, lives that a wrong answer costs (half a life when you are half right), a daily goal, and a Stash that saves a missed day. Practice brings back what you got wrong.',
-              ],
-              [
-                'A daily puzzle.',
-                'One interview problem a day in parts: choose the approach in a mock interview, trace it on a tricky input, find the input that breaks it, then build it.',
-              ],
-              [
-                'Kodie, the mascot.',
-                'A pixel face inside curly braces that breathes, blinks, winces at a wrong answer and dozes off when you have been away. You dress it in what you earn.',
-              ],
+              ['A path that reads like git.', 'Lessons are commits on a branch; each unit ends in a boss that merges into main.'],
+              ['Questions for your thumbs.', 'Predict the output, spot the bug, trace it, review a pull request, type one line.'],
+              ['A habit, kept honestly.', 'A streak grid, lives a wrong answer costs, and a Stash that saves a missed day.'],
+              ['A daily puzzle.', 'One interview problem in parts: choose the approach, break it, then build it.'],
+              ['Kodie, the mascot.', 'A pixel face that blinks, winces and dozes, dressed in what you earn.'],
             ]}
           />
           <div className="mt-10 space-y-3">
@@ -135,36 +84,23 @@ export default function KodiePage() {
         </Section>
 
         <Section title="Correctness first">
-          <p>One wrong answer key and an engineer stops trusting the app, so every answer is proven before it ships.</p>
-          <Points
+          <Bullets
             items={[
-              ['Outputs are run.', 'Every “what does this print” runs in Node or Python, and the answer comes from the run, not from whoever wrote the question.'],
-              ['Types are compiled.', 'Every “does this compile” claim goes through the TypeScript compiler.'],
-              ['Git is replayed.', 'Git questions run in a real repository, and every graph puzzle’s solution is replayed in git and compared with the goal.'],
-              ['Content is code.', 'Courses live in the repository as typed files, checked by a validator on every change, and published without an app release.'],
+              ['Outputs are run', 'in Node or Python, so the answer comes from the code.'],
+              ['Types are compiled', 'with the TypeScript compiler.'],
+              ['Git is replayed', 'in a real repository, every graph puzzle checked against its goal.'],
+              ['Content is code:', 'typed files, validated on every change, published without a release.'],
             ]}
           />
         </Section>
 
         <Section title="Craft">
-          <Points
+          <Bullets
             items={[
-              [
-                'An editor that plays like a game.',
-                'A code editor’s dark theme and syntax colours, each with one job (green for right, red for lives, yellow for XP, purple for bosses), and buttons with a solid edge that press down under your thumb with a haptic.',
-              ],
-              [
-                'Code that fits a phone.',
-                'Snippets are written to 46 characters a line. Anything longer shrinks a little, then scrolls sideways with a tag saying so, and is never wrapped.',
-              ],
-              [
-                'Calm motion.',
-                'Quick ease-out timings and no springs. A right answer slides up a green panel with a haptic and nothing else moves; a wrong one gets one small shake. With Reduce Motion on, Kodie keeps its faces and loses the movement.',
-              ],
-              [
-                'Plain words on buttons.',
-                'The git flavour lives in titles and celebrations (“git gud.”, “Merge into main”). Buttons and headers say what they do: Start, Redo, Jump ahead.',
-              ],
+              ['An editor that plays like a game.', 'Syntax colours with one job each, and buttons that press down.'],
+              ['Code that fits a phone.', '46 characters a line; longer lines shrink, then scroll, never wrap.'],
+              ['Calm motion.', 'Ease-out, no springs; Reduce Motion keeps the faces and drops the movement.'],
+              ['Plain words on buttons.', 'The git jokes live in titles: Start, Redo, Jump ahead.'],
             ]}
           />
           <div className="mt-10">
@@ -177,41 +113,23 @@ export default function KodiePage() {
         </Section>
 
         <Section title="Where it stands">
-          <p>
-            Built over a week, and testing on TestFlight. JavaScript, TypeScript, Git and Interview patterns are written,
-            with about 680 lesson questions, a boss for every unit, eight daily puzzles and a 60-second speed round. Python,
-            React, SQL, System design, Go and the terminal are on the way.
-          </p>
-          <p>
-            Next is Kodie Pro, a subscription for unlimited lives, every course and past puzzles, then more daily puzzles
-            and a launch on the App Store.
-          </p>
+          <Bullets
+            items={[
+              ['Written:', 'JavaScript, TypeScript, Git and Interview patterns, about 680 questions, a boss for every unit.'],
+              ['Coming:', 'Python, React, SQL, System design, Go and the terminal.'],
+              ['Next:', 'Kodie Pro, more daily puzzles, then the App Store.'],
+            ]}
+          />
         </Section>
 
         <Section title="Stack">
           <p>
-            React Native with Expo, TypeScript, Expo Router, TanStack Query and Zustand, with zod checking every lesson that
-            loads. Supabase for Postgres, sign-in with Apple, Google and GitHub, and edge functions, with row-level security
-            on every table. Skia draws the mascot and its animations. The same foundations as Tandem, so what I learn in one
-            carries over to the other.
+            React Native with Expo and TypeScript, TanStack Query, Zustand and zod. Supabase for Postgres, sign-in with Apple,
+            Google and GitHub, and edge functions, with row-level security on every table. Skia draws the mascot.
           </p>
         </Section>
 
-        <Link href="/tandem" className="group mb-24 flex items-center justify-between gap-6 border-y border-border py-6">
-          <span>
-            <span className="block font-mono text-[10px] uppercase tracking-[0.15em] text-muted">Next</span>
-            <span className="hover-underline mt-2 inline-block text-sm font-medium text-foreground">Tandem</span>
-            <span className="mt-1 block text-sm leading-relaxed text-muted transition-colors duration-200 group-hover:text-foreground">
-              A community app for finding your people, live on the App Store.
-            </span>
-          </span>
-          <span
-            aria-hidden="true"
-            className="font-mono text-sm text-muted transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-1"
-          >
-            →
-          </span>
-        </Link>
+        <NextProject href="/tandem" name="Tandem" line="A community app for finding people to train with, live on the App Store." />
       </div>
     </main>
   )
