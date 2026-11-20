@@ -8,16 +8,17 @@ import { Bullets, Facts, NextProject, Section, Stage } from '@/components/projec
 export const metadata: Metadata = {
   title: 'Tandem',
   description:
-    'A community app for finding people to train with, and what’s on around you. Co-founded with Adam Angel. Product, design and development by Gregg Finn.',
+    'Tandem helps you find people to train with and see what’s on near you. Co-founded with Adam Angel. Product, design and development by Gregg Finn.',
 }
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 const APP_STORE = 'https://apps.apple.com/us/app/tandem-train-together/id6771069787'
 
-// Screens shown as on trainintandem.com (Gregg, 2026-11-20): three phones at the top, then two
-// staggered on a soft panel beside the sections they illustrate
-const app = (n: number, alt: string) => ({ src: `/tandem/app3/${n}.jpg`, alt })
+// Screens shown as on trainintandem.com, all from the App Store set (Gregg, 2026-11-20): three phones
+// at the top, then two staggered on a soft panel beside the sections they illustrate. The copy is
+// plain whole sentences (Gregg, 2026-11-20: no comma lists ending in "and", no fragments)
+const app = (n: number, alt: string) => ({ src: `/tandem/app4/${n}.jpg`, alt })
 
 export default function TandemPage() {
   return (
@@ -29,8 +30,8 @@ export default function TandemPage() {
         <h1 className="enter mt-6 text-2xl font-semibold tracking-tight text-foreground" style={step(2)}>
           Tandem
         </h1>
-        <p className="enter mt-3 max-w-md text-base leading-relaxed text-muted" style={step(3)}>
-          A community app for finding people to train with, and what&apos;s on around you. Co-founded with Adam Angel; I
+        <p className="enter mt-3 text-base leading-relaxed text-muted" style={step(3)}>
+          Tandem helps you find people to train with and see what&apos;s on near you. I co-founded it with Adam Angel and
           lead product, design and development.
         </p>
         <a
@@ -64,8 +65,8 @@ export default function TandemPage() {
 
       <div className="enter mb-4" style={step(5)}>
         <Image
-          src="/tandem/hero3.png"
-          alt="Tandem on iPhone: what’s on around you on a map, clubs near you, and a story card to share after a session"
+          src="/tandem/hero4.png"
+          alt="Tandem on iPhone: what’s on around you on a map, how a club is growing, and a story card to share after a session"
           width={2160}
           height={1640}
           priority
@@ -76,21 +77,20 @@ export default function TandemPage() {
       <div className="enter" style={step(5)}>
         <Section title="Why Tandem">
           <p>
-            People want to be fit, and it&apos;s easier with others, but plenty don&apos;t know where to start, who&apos;s a
-            beginner or who they&apos;d be going with. Even at a run club you meet a handful of people, not everyone who&apos;s
-            out that week.
+            Training is easier with other people, but it&apos;s hard to know where to start or who you&apos;d be going with.
+            Even at a run club, you only meet a few of the people who are out that week.
           </p>
-          <p>Tandem puts what&apos;s on and who&apos;s going in front of you, so you can join them.</p>
+          <p>Tandem shows you what&apos;s on near you and who&apos;s going, so you can join them.</p>
         </Section>
 
         <Section title="What it does">
           <Bullets
             items={[
-              ['What’s on.', 'Every session near you on one map, with who’s going and whether it’s at your pace.'],
-              ['Your people.', 'People near you who train like you, each with a line on what you share.'],
-              ['Your club.', 'Weekly sessions, a club board, and who keeps coming back.'],
-              ['On the day.', 'Sessions go into your calendar, and a Live Activity counts down with directions.'],
-              ['Afterwards.', 'Workouts come in from Apple Health or Garmin; the session tells you how the group went.'],
+              ['What’s on.', 'The map shows every session near you, who’s going and whether it’s at your pace.'],
+              ['Your people.', 'Tandem suggests people near you who train the way you do, and tells you what you have in common.'],
+              ['Your club.', 'Clubs post their weekly sessions and keep their members up to date on a club board.'],
+              ['On the day.', 'Sessions you join go into your calendar. On the day, a Live Activity counts down to the start and gives you directions.'],
+              ['Afterwards.', 'Your workout comes in from Apple Health or Garmin, and the session shows how the group went.'],
             ]}
           />
           <div className="mt-10">
@@ -101,10 +101,10 @@ export default function TandemPage() {
         <Section title="What it isn't">
           <Bullets
             items={[
-              ['A tracker.', 'It brings in what your watch recorded and puts it with the people you trained with.'],
-              ['A stage.', 'Notes, photos and comments are for the people there, not an audience.'],
-              ['Somewhere you’re watched.', 'The map shows planned sessions only. Nobody’s location is followed.'],
-              ['A chat app.', 'Each session has a chat for meeting up, and that’s all.'],
+              ['A tracker.', 'Tandem doesn’t record workouts. It brings in what your watch recorded and shows it next to the people you trained with.'],
+              ['A stage.', 'Notes, photos and comments are for the people who were there, not for an audience.'],
+              ['Somewhere you’re watched.', 'The map only shows planned sessions. Tandem never tracks anyone’s location.'],
+              ['A chat app.', 'Each session has a chat for arranging where to meet, and nothing more.'],
             ]}
           />
         </Section>
@@ -112,11 +112,11 @@ export default function TandemPage() {
         <Section title="Built on trust">
           <Bullets
             items={[
-              ['No check-ins.', 'A workout, or someone who was there, marks you as there.'],
-              ['One vouch.', '“I’d train with them again” replaced a set of tags people found awkward.'],
-              ['Late bails count.', 'Leaving in the last two hours counts as half a no-show.'],
-              ['Sessions for one gender.', 'Women only, men only, or women and non-binary people.'],
-              ['Protected meeting points.', 'Ask-to-join sessions show an area until the host approves you.'],
+              ['No check-ins.', 'A workout from your watch shows you were there. If you didn’t wear one, someone who came can confirm it.'],
+              ['One vouch.', 'After a session, you can vouch for anyone you’d train with again. It replaced a set of tags that people found awkward.'],
+              ['Late bails count.', 'Leaving a session in the two hours before it starts counts against your show-up rate.'],
+              ['Sessions for one gender.', 'Sessions and clubs can be women only, men only, or women and non-binary.'],
+              ['Protected meeting points.', 'When you have to ask to join, the map shows the area. The exact meeting point appears once the host approves you.'],
             ]}
           />
           <div className="mt-10">
@@ -127,11 +127,11 @@ export default function TandemPage() {
         <Section title="Craft">
           <Bullets
             items={[
-              ['Map pins that never change size.', 'MapKit anchors a pin by its first size, so selection inverts its colours instead.'],
-              ['Words before charts.', '“You ran together for 16 km” comes first, the lines after.'],
-              ['One place to share.', 'Story card, sticker and poster are tabs of one dark screen.'],
-              ['A redesign behind one switch.', 'Mocked first, trialled with named testers, released at once.'],
-              ['One visual language.', 'Greys, Geist, one green dot for anything happening now, dots for loading.'],
+              ['Map pins that never change size.', 'Apple Maps places a pin by its first size, so a pin that grows when you tap it jumps. Selected pins change colour instead.'],
+              ['Words before charts.', 'After a group run, the first thing you read is what happened, such as “You ran together for 16 km”. The charts come after.'],
+              ['One place to share.', 'The story card, sticker and poster sit on one screen, so you can compare them before you post.'],
+              ['A redesign behind one switch.', 'The current design was mocked up first and tested with a few people before it went to everyone at once.'],
+              ['One visual language.', 'Tandem uses greys and the Geist typeface. Its only colour is a green dot for anything happening now.'],
             ]}
           />
           <div className="mt-10">
@@ -141,13 +141,14 @@ export default function TandemPage() {
 
         <Section title="Stack">
           <p>
-            React Native with Expo and TypeScript, TanStack Query and Zustand. Supabase for Postgres, auth, storage and edge
-            functions, with row-level security on every table. Swift for the Live Activity and widgets. Small changes ship
-            over the air; native ones as App Store builds.
+            Tandem is built in React Native with Expo and TypeScript, using TanStack Query and Zustand. Supabase runs the
+            database, sign-in, storage and server functions, with row-level security on every table. The Live Activity and
+            widgets are written in Swift. Small changes go out as over-the-air updates, and native changes go out as App
+            Store builds.
           </p>
         </Section>
 
-        <NextProject href="/kodie" name="Kodie" line="Five minutes a day to keep an engineer’s fundamentals sharp." />
+        <NextProject href="/kodie" name="Kodie" line="Learn to code in a few minutes a day." />
       </div>
     </main>
   )

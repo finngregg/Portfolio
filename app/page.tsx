@@ -77,7 +77,7 @@ export default function Home() {
             <Link href="/kodie" className="hover-underline text-foreground">
               Kodie
             </Link>
-            , a daily practice app for software engineers.
+            , an app that teaches coding in a few minutes a day.
           </p>
         </div>
       </section>
